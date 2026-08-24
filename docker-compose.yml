@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://plyxo_user:plyxo_password@db:5432/plyxo_db
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - GEMINI_API_KEYS=${GEMINI_API_KEYS}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - plyxo-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: plyxo_user
+      POSTGRES_PASSWORD: plyxo_password
+      POSTGRES_DB: plyxo_db
+    volumes:
+      - plyxo-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U plyxo_user -d plyxo_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - plyxo-network
+    restart: unless-stopped
+
+volumes:
+  plyxo-db-data:
+
+networks:
+  plyxo-network:
+    driver: bridge

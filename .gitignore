@@ -1,0 +1,71 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing & coverage
+/coverage
+
+# next.js build outputs
+/.next/
+/.next-community/
+/out/
+
+# production
+/build
+
+# misc & OS
+.DS_Store
+*.pem
+Thumbs.db
+
+# debug & logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+lint_output.txt
+lint_report.json
+
+# env files
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Archives & Compressed files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Backups & Database dumps
+/backups/
+*.sql.gz
+*.dump
+
+# Local Agent & Scratch files
+/.agents/
+/.claude/
+/claude/
+skills-lock.json
+baseui.txt
+check.mjs
+contact_page.html
+CLAUDE.md
+DESIGN*.md
