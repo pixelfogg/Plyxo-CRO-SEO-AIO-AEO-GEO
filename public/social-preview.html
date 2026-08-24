@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1280, height=640" />
+  <title>Plyxo Social Preview</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1280px;
+      height: 640px;
+      overflow: hidden;
+      background-color: #0f0e0d;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #faf9f5;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 56px 68px;
+    }
+
+    /* Ambient dynamic glows */
+    .glow-top-right {
+      position: absolute;
+      top: -120px;
+      right: -80px;
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(204, 120, 92, 0.22) 0%, rgba(204, 120, 92, 0) 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .glow-bottom-left {
+      position: absolute;
+      bottom: -140px;
+      left: -100px;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(93, 184, 114, 0.16) 0%, rgba(93, 184, 114, 0) 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* Header section */
+    .header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-svg {
+      height: 48px;
+      width: auto;
+    }
+
+    .logo-svg path {
+      fill: #ffffff !important;
+    }
+
+    .open-source-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      background: rgba(204, 120, 92, 0.14);
+      border: 1px solid rgba(204, 120, 92, 0.35);
+      color: #e5987d;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #5db872;
+      box-shadow: 0 0 10px #5db872;
+    }
+
+    /* Main Hero content */
+    .hero {
+      position: relative;
+      z-index: 10;
+      margin-top: 10px;
+    }
+
+    .pill-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pill {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #faf9f5;
+    }
+
+    .pill.highlight {
+      background: linear-gradient(135deg, rgba(204, 120, 92, 0.25), rgba(204, 120, 92, 0.1));
+      border-color: rgba(204, 120, 92, 0.45);
+      color: #ffaa8c;
+    }
+
+    .pill-sep {
+      color: rgba(255, 255, 255, 0.25);
+      font-weight: bold;
+    }
+
+    .main-title {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .main-title span {
+      background: linear-gradient(135deg, #ffffff 30%, #e0dcd3 60%, #cc785c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 19px;
+      color: #a8a59d;
+      font-weight: 500;
+      max-width: 900px;
+      line-height: 1.45;
+    }
+
+    /* Cards / Feature list */
+    .features-grid {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .feature-card {
+      background: rgba(25, 24, 22, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-icon {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .feature-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #faf9f5;
+      margin-bottom: 2px;
+    }
+
+    .feature-desc {
+      font-size: 11.5px;
+      color: #8e8b82;
+      line-height: 1.35;
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 18px;
+      font-size: 13px;
+      color: #7a776f;
+    }
+
+    .repo-link {
+      font-family: 'Space Grotesk', monospace;
+      color: #e5987d;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .license-tag {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      color: #aba8a0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-top-right"></div>
+  <div class="glow-bottom-left"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-container">
+      <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194290 38169">
+        <path fill="#FFFFFF" d="M51812 25000l0 10655 -5991 0 0 -32604 13757 0c1645,0 3159,278 4542,826 1383,549 2578,1318 3585,2291 1006,974 1792,2136 2349,3487 564,1350 843,2815 843,4395 0,1612 -278,3085 -826,4419 -549,1334 -1326,2487 -2324,3462 -998,974 -2185,1726 -3560,2266 -1375,532 -2881,802 -4509,802l-7865 0zm7553 -5156c786,0 1514,-147 2193,-442 679,-295 1268,-703 1760,-1219 499,-524 892,-1130 1178,-1833 286,-704 434,-1465 434,-2275 0,-818 -147,-1580 -434,-2291 -286,-704 -687,-1326 -1187,-1849 -507,-532 -1097,-949 -1776,-1261 -679,-311 -1408,-466 -2193,-466l-7529 0 0 11637 7553 0zm17251 -16793l5966 0 0 27448 14722 0 0 5156 -20688 0 0 -32604zm48006 0l-12857 20189 0 12415 -5966 0 0 -12398 -12857 -20206 6981 0 8822 14747 74 0 8798 -14747 7005 0zm17235 11432l7889 -11432 7022 0 -11171 15557 12202 17047 -7071 0 -8871 -12897 -8871 12897 -7046 0 12177 -17047 -11171 -15557 7046 0 7865 11432zm17079 4821c0,-1580 213,-3102 639,-4558 425,-1449 1014,-2807 1776,-4075 761,-1261 1678,-2406 2758,-3437 1080,-1031 2275,-1915 3577,-2652 1301,-737 2709,-1301 4214,-1702 1497,-401 3069,-597 4706,-597 1612,0 3175,196 4689,597 1514,401 2921,966 4223,1702 1301,737 2496,1620 3577,2652 1080,1031 2005,2177 2774,3437 770,1268 1359,2627 1784,4075 425,1457 638,2979 638,4558 0,1579 -213,3102 -638,4558 -426,1448 -1015,2807 -1784,4075 -769,1260 -1694,2406 -2774,3437 -1080,1031 -2275,1915 -3577,2660 -1301,745 -2709,1318 -4223,1718 -1514,401 -3077,597 -4689,597 -1637,0 -3208,-196 -4706,-597 -1506,-401 -2913,-974 -4214,-1718 -1301,-745 -2496,-1628 -3577,-2660 -1080,-1031 -1997,-2177 -2758,-3437 -761,-1268 -1351,-2627 -1776,-4075 -426,-1457 -639,-2979 -639,-4558zm5990 24c0,1678 311,3241 925,4689 614,1440 1449,2701 2504,3764 1056,1056 2291,1891 3699,2504 1416,605 2930,908 4550,908 1628,0 3151,-303 4575,-908 1424,-614 2660,-1449 3716,-2504 1056,-1064 1882,-2324 2496,-3764 605,-1449 908,-3012 908,-4689 0,-1678 -303,-3249 -908,-4698 -614,-1456 -1441,-2716 -2496,-3781 -1056,-1064 -2291,-1899 -3716,-2504 -1424,-605 -2946,-908 -4575,-908 -1620,0 -3135,303 -4550,908 -1408,605 -2643,1441 -3699,2504 -1056,1064 -1891,2324 -2504,3781 -614,1449 -925,3020 -925,4698z"/>
+        <path fill="#FFFFFF" d="M26600 0l-3820 0c-5971,0 -10811,4840 -10811,10811l0 10811 14631 0c5971,0 10811,-4840 10811,-10811 0,-5971 -4840,-10811 -10811,-10811zm-539 15276l0 0 -7206 0 0 -4465c0,-2462 2003,-4465 4465,-4465l2742 0c2462,0 4465,2003 4465,4465 0,2462 -2003,4465 -4465,4465zm-7226 18000l0 -7775 -4373 0 -19 0 -2720 0c-28,0 -55,1 -82,1l0 -1 -2894 0 -1479 0 -2894 0c-2415,0 -4373,2191 -4373,4893l0 2883c0,2702 1958,4893 4373,4893l0 0c986,0 1908,0 2894,0l0 0c1571,0 2885,0 4456,0l0 0c931,0 1808,0 2739,0l0 0c2415,0 4373,-2191 4373,-4893z"/>
+      </svg>
+    </div>
+    <div class="open-source-badge">
+      <span class="badge-dot"></span>
+      100% Open Source • Community Edition
+    </div>
+  </div>
+
+  <!-- Hero Text -->
+  <div class="hero">
+    <div class="pill-group">
+      <div class="pill highlight">CRO</div>
+      <span class="pill-sep">•</span>
+      <div class="pill highlight">SEO</div>
+      <span class="pill-sep">•</span>
+      <div class="pill highlight">AIO</div>
+      <span class="pill-sep">•</span>
+      <div class="pill highlight">AEO</div>
+      <span class="pill-sep">•</span>
+      <div class="pill highlight">GEO</div>
+    </div>
+    <h1 class="main-title">
+      Autonomous AI Intelligence Platform for <span>Conversion & Search Optimization</span>
+    </h1>
+    <p class="subtitle">
+      Visual Bounding Box CRO Audits • ChatGPT & Perplexity AEO Likelihood • Technical SEO • Keyword Discovery • Competitor Gap Analysis
+    </p>
+  </div>
+
+  <!-- Feature Cards -->
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-title">Visual CRO Engine</div>
+      <div class="feature-desc">Bounding box pinpointing & drop-in React/Tailwind code patches</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <div class="feature-title">AEO / GEO Optimization</div>
+      <div class="feature-desc">LLM citation benchmarking for ChatGPT, Perplexity & Gemini</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <div class="feature-title">Semantic SEO & Vitals</div>
+      <div class="feature-desc">Content readability, DOM hierarchy & Core Web Vitals audits</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Self-Hosted & Isolated</div>
+      <div class="feature-desc">Zero paywalls, unlimited properties, 100% private PostgreSQL</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="repo-link">
+      <span>github.com/pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <span class="license-tag">Next.js 16 • React 19 • Drizzle ORM • Google Gemini AI</span>
+      <span class="license-tag">MIT License</span>
+    </div>
+  </div>
+</body>
+</html>
