@@ -139,7 +139,7 @@
     <g transform="translate(20, 290)">
       <rect x="0" y="0" width="416" height="48" rx="8" fill="#cc785c"/>
       <text x="110" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#ffffff">
-        ⚡ Auto-Generate Content Cluster &rarr;
+        ⚡ Auto-Generate Content Cluster &#8594;
       </text>
     </g>
   </g>

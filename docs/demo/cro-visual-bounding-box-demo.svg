@@ -105,7 +105,7 @@
       <text x="34" y="146" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">    text-white font-bold py-3 px-6</text>
       <text x="34" y="168" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">    rounded-xl shadow-lg hover:scale-105</text>
       <text x="34" y="190" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">    transition-all duration-200"</text>
-      <text x="14" y="212" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">+ &gt; Start Free Trial &rarr;&lt;/button&gt;</text>
+      <text x="14" y="212" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">+ &gt; Start Free Trial &#8594;&lt;/button&gt;</text>
     </g>
   </g>
 </svg>
