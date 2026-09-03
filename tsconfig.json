@@ -25,6 +25,12 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@plyxo/core": [
+        "./packages/core/src/index.ts"
+      ],
+      "@plyxo/core/*": [
+        "./packages/core/src/*"
       ]
     }
   },

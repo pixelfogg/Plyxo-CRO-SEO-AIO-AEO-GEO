@@ -4,9 +4,13 @@
   "description": "The Autonomous Open-Source AI Intelligence Platform for Conversion Optimization (CRO), Technical SEO & LLM Citations (AEO/GEO)",
   "license": "MIT",
   "private": false,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run lint",
+    "build:core": "npm run build --prefix packages/core",
+    "prebuild": "npm run build:core && npm run lint",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -17,6 +21,7 @@
     "dev:community": "npx tsx scripts/start-community.ts"
   },
   "dependencies": {
+    "@plyxo/core": "file:./packages/core",
     "@ai-sdk/google": "^4.0.45",
     "@ai-sdk/react": "^4.0.71",
     "@base-ui/react": "^1.6.0",

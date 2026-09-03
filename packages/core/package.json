@@ -1,0 +1,89 @@
+{
+  "name": "@plyxo/core",
+  "version": "1.0.0",
+  "description": "Core SEO, CRO Visual Bounding Box, AEO Citation, and Scanner Engine for Plyxo",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./seo": {
+      "import": {
+        "types": "./dist/seo/utils.d.mts",
+        "default": "./dist/seo/utils.mjs"
+      },
+      "require": {
+        "types": "./dist/seo/utils.d.ts",
+        "default": "./dist/seo/utils.js"
+      }
+    },
+    "./scanner": {
+      "import": {
+        "types": "./dist/scanner/master-checklist.d.mts",
+        "default": "./dist/scanner/master-checklist.mjs"
+      },
+      "require": {
+        "types": "./dist/scanner/master-checklist.d.ts",
+        "default": "./dist/scanner/master-checklist.js"
+      }
+    },
+    "./ai": {
+      "import": {
+        "types": "./dist/ai/gemini.d.mts",
+        "default": "./dist/ai/gemini.mjs"
+      },
+      "require": {
+        "types": "./dist/ai/gemini.d.ts",
+        "default": "./dist/ai/gemini.js"
+      }
+    },
+    "./security": {
+      "import": {
+        "types": "./dist/security/index.d.mts",
+        "default": "./dist/security/index.mjs"
+      },
+      "require": {
+        "types": "./dist/security/index.d.ts",
+        "default": "./dist/security/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "seo",
+    "cro",
+    "aeo",
+    "geo",
+    "web-vitals",
+    "schema-org",
+    "ai-citations",
+    "plyxo"
+  ],
+  "author": "Plyxo Team",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^2.15.0",
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.0.0"
+  }
+}
