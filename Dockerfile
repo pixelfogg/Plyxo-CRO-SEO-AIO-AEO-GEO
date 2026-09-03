@@ -8,6 +8,8 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
+COPY packages/ ./packages/
+COPY plyxo-mcp-server/ ./plyxo-mcp-server/
 RUN npm ci
 
 # Rebuild the source code only when needed
