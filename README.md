@@ -18,7 +18,7 @@
 
 <br />
 
-<!-- Interactive Animated Demo -->
+<!-- Hero Interactive Animated Demo -->
 <p align="center">
   <img src="docs/demo/claude-seo-audit-demo.svg" alt="Plyxo Autonomous Claude-SEO Live Audit Demo" width="100%" />
 </p>
@@ -38,7 +38,7 @@
  Autonomous AI Conversion, Search & LLM Intelligence Suite
 ```
 
-[🎬 Live Demos](#-interactive-animated-demos) • [✨ Key Features](#-key-features) • [🧠 Claude-SEO Skills Implemented](#-complete-claude-seo-skills-suite-implemented) • [📊 Why Plyxo?](#-why-plyxo-vs-traditional-tools) • [🛠️ Architecture](#-system-architecture) • [🚀 Quick Start](#-quick-start--installation) • [⚙️ Configuration](#-environment-variables) • [🗺️ Roadmap](#-roadmap) • [🤝 Contributing](#-contributing)
+[🎬 Interactive Demos](#-interactive-animated-demos) • [✨ Key Features](#-key-features) • [🧠 Claude-SEO Skills Implemented](#-complete-claude-seo-skills-suite-implemented) • [📊 Why Plyxo?](#-why-plyxo-vs-traditional-tools) • [🛠️ Architecture](#-system-architecture) • [🚀 Quick Start](#-quick-start--installation) • [⚙️ Configuration](#-environment-variables) • [🗺️ Roadmap](#-roadmap) • [🤝 Contributing](#-contributing)
 
 </div>
 
@@ -47,17 +47,38 @@
 ## 🎬 Interactive Animated Demos
 
 ### 1. ⚡ Autonomous Claude-SEO Live Audit Engine
-Parallel multi-agent execution checking Technical SEO, Schema validation, Core Web Vitals, and LLM citation scores:
+Parallel multi-agent execution inspecting Technical SEO, Schema markup validation, Core Web Vitals, and LLM citation rates in real time:
 
 <p align="center">
   <img src="docs/demo/claude-seo-audit-demo.svg" alt="Claude-SEO Autonomous Audit Demo" width="100%" />
 </p>
 
 ### 2. 🎯 Visual Bounding Box Friction Localization & Code Fixes
-Live visual viewport inspection pinpointing conversion friction hotspots and generating drop-in Tailwind/React code remediation:
+Live visual viewport scanning pinpointing conversion friction hotspots and calculating projected monthly revenue lift with instant code fixes:
 
 <p align="center">
   <img src="docs/demo/cro-visual-bounding-box-demo.svg" alt="CRO Visual Bounding Box Inspector Demo" width="100%" />
+</p>
+
+### 3. 🤖 AEO / GEO LLM Citation Probability & Synthesis
+Benchmarking citation readiness across ChatGPT Search, Perplexity AI, Google Gemini, and Anthropic Claude with Knowledge Graph entity density parsing:
+
+<p align="center">
+  <img src="docs/demo/aeo-citation-scoring-demo.svg" alt="AEO LLM Citation Scoring Demo" width="100%" />
+</p>
+
+### 4. ⚔️ Side-by-Side Competitor Battlecards & Keyword Discovery
+Automated gap detection benchmarking your digital property against rival domains and highlighting high-intent keyword opportunities:
+
+<p align="center">
+  <img src="docs/demo/competitor-battlecard-demo.svg" alt="Competitor Battlecard Demo" width="100%" />
+</p>
+
+### 5. 🔗 High-Speed Dead Link Scanner & Diagnostics
+Rapidly sweeps through internal and external links with SSRF-protected crawlers to eliminate broken 404s and circular redirects:
+
+<p align="center">
+  <img src="docs/demo/dead-link-crawler-demo.svg" alt="Dead Link Crawler Demo" width="100%" />
 </p>
 
 ---
@@ -307,7 +328,10 @@ plyxo-cro-seo-aio/
 ├── docs/                       # Architectural diagrams & interactive animated demos
 │   ├── demo/
 │   │   ├── claude-seo-audit-demo.svg         # Live animated Claude-SEO audit
-│   │   └── cro-visual-bounding-box-demo.svg  # Live animated CRO bounding box inspector
+│   │   ├── cro-visual-bounding-box-demo.svg  # Live animated CRO bounding box inspector
+│   │   ├── aeo-citation-scoring-demo.svg     # Live animated AEO citation rates
+│   │   ├── competitor-battlecard-demo.svg    # Live animated competitor gap battlecard
+│   │   └── dead-link-crawler-demo.svg        # Live animated dead link scanner
 │   └── banner.svg
 ├── scripts/
 │   ├── setup-community.ts      # Automated database provisioner & table seeder
@@ -348,10 +372,11 @@ plyxo-cro-seo-aio/
 - [x] Standalone Community Edition with zero billing and instant login bypass
 - [x] Full Claude-SEO skills suite integration (Technical, E-E-A-T, Schema, Semantic, GEO)
 - [x] Visual Bounding Box localization & code remediation generator
-- [x] AEO / GEO LLM Citation Likelihood Scorer (ChatGPT, Perplexity, Gemini)
+- [x] AEO / GEO LLM Citation Likelihood Scorer (ChatGPT, Perplexity, Gemini, Claude)
 - [x] Resilient Multi-tier WAF & Cloudflare bypass fallback
 - [x] Multi-key Gemini API failover and round-robin load balancing
 - [x] Automated Broken Link Detector
+- [x] Interactive animated SVG demo suites for every core module
 - [ ] Multi-lingual AEO citation simulation
 - [ ] Exportable PDF Executive Growth Reports
 - [ ] Self-hosted Docker Compose 1-click stack

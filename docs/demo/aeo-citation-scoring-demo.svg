@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%">
+  <defs>
+    <linearGradient id="aeoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141413"/>
+      <stop offset="50%" stop-color="#181715"/>
+      <stop offset="100%" stop-color="#0f0e0d"/>
+    </linearGradient>
+    <linearGradient id="chatgptGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10a37f"/>
+      <stop offset="100%" stop-color="#55dda8"/>
+    </linearGradient>
+    <linearGradient id="perplexityGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22b8cf"/>
+      <stop offset="100%" stop-color="#66d9e8"/>
+    </linearGradient>
+    <linearGradient id="geminiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8e75f8"/>
+      <stop offset="100%" stop-color="#b197fc"/>
+    </linearGradient>
+    <linearGradient id="claudeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#cc785c"/>
+      <stop offset="100%" stop-color="#e8a55a"/>
+    </linearGradient>
+    <filter id="aeoGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <style>
+    @keyframes barFill1 { 0% { width: 0%; } 40%, 100% { width: 94%; } }
+    @keyframes barFill2 { 0% { width: 0%; } 45%, 100% { width: 89%; } }
+    @keyframes barFill3 { 0% { width: 0%; } 50%, 100% { width: 96%; } }
+    @keyframes barFill4 { 0% { width: 0%; } 55%, 100% { width: 91%; } }
+    @keyframes nodePulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.08); opacity: 1; } }
+    @keyframes textStream { 0%, 20% { opacity: 0; transform: translateY(4px); } 30%, 100% { opacity: 1; transform: translateY(0); } }
+
+    .bar-1 { animation: barFill1 4s infinite cubic-bezier(0.16, 1, 0.3, 1); }
+    .bar-2 { animation: barFill2 4s infinite cubic-bezier(0.16, 1, 0.3, 1); }
+    .bar-3 { animation: barFill3 4s infinite cubic-bezier(0.16, 1, 0.3, 1); }
+    .bar-4 { animation: barFill4 4s infinite cubic-bezier(0.16, 1, 0.3, 1); }
+    .pulse-node { animation: nodePulse 2.5s infinite ease-in-out; transform-origin: center; }
+    .stream-txt { animation: textStream 4s infinite ease-out; }
+  </style>
+
+  <!-- Container Box -->
+  <rect width="1000" height="580" rx="14" fill="url(#aeoBg)" stroke="#2e2b27" stroke-width="1.5"/>
+
+  <!-- Window Chrome -->
+  <rect x="0" y="0" width="1000" height="44" rx="14" fill="#1b1a17"/>
+  <rect x="0" y="32" width="1000" height="12" fill="#1b1a17"/>
+  <circle cx="24" cy="22" r="6" fill="#e85a5a"/><circle cx="44" cy="22" r="6" fill="#e8a55a"/><circle cx="64" cy="22" r="6" fill="#5db872"/>
+  <rect x="110" y="10" width="660" height="24" rx="6" fill="#141413" stroke="#2e2b27"/>
+  <text x="124" y="26" font-family="'JetBrains Mono', monospace" font-size="12" fill="#8e8b82">/dashboard/aio/benchmark?query=best+b2b+analytics+engine</text>
+
+  <!-- Section Header -->
+  <g transform="translate(40, 68)">
+    <rect x="0" y="0" width="920" height="74" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    <text x="24" y="30" font-family="'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="700" fill="#faf9f5">
+      LLM Citation Probability &amp; Answer Engine Optimization (AEO/GEO)
+    </text>
+    <text x="24" y="52" font-family="'Segoe UI', sans-serif" font-size="13" fill="#8e8b82">
+      Target Query: <tspan fill="#e8a55a" font-family="'JetBrains Mono', monospace">"best b2b conversion optimization engine"</tspan> · Knowledge Graph Entity Density: <tspan fill="#5db872" font-weight="700">98.4%</tspan>
+    </text>
+    <rect x="740" y="14" width="156" height="46" rx="6" fill="#252320" stroke="#38342f"/>
+    <text x="754" y="32" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="600" fill="#8e8b82">CITABLE AUTHORITY</text>
+    <text x="754" y="48" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="800" fill="#5db872">⭐ VERY HIGH</text>
+  </g>
+
+  <!-- Left: Engine Citation Probability Progress Bars -->
+  <g transform="translate(40, 160)">
+    <rect x="0" y="0" width="460" height="380" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    <text x="20" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#8e8b82" letter-spacing="1">
+      LLM BENCHMARK CITATION RATES
+    </text>
+
+    <!-- ChatGPT Search -->
+    <g transform="translate(20, 50)">
+      <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">ChatGPT Search (GPT-4o)</text>
+      <text x="380" y="14" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#10a37f">94%</text>
+      <rect x="0" y="24" width="420" height="12" rx="6" fill="#252320"/>
+      <rect x="0" y="24" height="12" rx="6" fill="url(#chatgptGrad)" class="bar-1"/>
+    </g>
+
+    <!-- Perplexity AI -->
+    <g transform="translate(20, 114)">
+      <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">Perplexity AI Pro</text>
+      <text x="380" y="14" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#22b8cf">89%</text>
+      <rect x="0" y="24" width="420" height="12" rx="6" fill="#252320"/>
+      <rect x="0" y="24" height="12" rx="6" fill="url(#perplexityGrad)" class="bar-2"/>
+    </g>
+
+    <!-- Google Gemini -->
+    <g transform="translate(20, 178)">
+      <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">Google Gemini 2.0 Flash</text>
+      <text x="380" y="14" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#8e75f8">96%</text>
+      <rect x="0" y="24" width="420" height="12" rx="6" fill="#252320"/>
+      <rect x="0" y="24" height="12" rx="6" fill="url(#geminiGrad)" class="bar-3"/>
+    </g>
+
+    <!-- Anthropic Claude -->
+    <g transform="translate(20, 242)">
+      <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">Anthropic Claude 3.7 Sonnet</text>
+      <text x="380" y="14" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#cc785c">91%</text>
+      <rect x="0" y="24" width="420" height="12" rx="6" fill="#252320"/>
+      <rect x="0" y="24" height="12" rx="6" fill="url(#claudeGrad)" class="bar-4"/>
+    </g>
+
+    <!-- Entity Signals Badge -->
+    <g transform="translate(20, 314)">
+      <rect x="0" y="0" width="420" height="46" rx="6" fill="#252320" stroke="#38342f"/>
+      <text x="14" y="28" font-family="'Segoe UI', sans-serif" font-size="12" fill="#faf9f5">
+        🏷️ <tspan font-weight="700">Entity Signals:</tspan> Schema.org Fact Density ✓ · Direct TL;DR ✓
+      </text>
+    </g>
+  </g>
+
+  <!-- Right: Simulated LLM Citation Box -->
+  <g transform="translate(520, 160)">
+    <rect x="0" y="0" width="440" height="380" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    <text x="20" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#8e8b82" letter-spacing="1">
+      SIMULATED ANSWER ENGINE OUTPUT
+    </text>
+
+    <!-- Response Preview Card -->
+    <g transform="translate(20, 50)" class="stream-txt">
+      <rect x="0" y="0" width="400" height="308" rx="8" fill="#141413" stroke="#2e2b27"/>
+      
+      <!-- LLM Pill Header -->
+      <g transform="translate(16, 16)">
+        <rect x="0" y="0" width="134" height="24" rx="12" fill="#10a37f" opacity="0.15"/>
+        <circle cx="12" cy="12" r="4" fill="#10a37f"/>
+        <text x="24" y="16" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#10a37f">AI SYNTHESIS [1]</text>
+      </g>
+
+      <text x="16" y="66" font-family="'Segoe UI', sans-serif" font-size="13" fill="#faf9f5" font-weight="600">
+        "According to verified telemetry from <tspan fill="#cc785c">YourBrand [1]</tspan>:"
+      </text>
+
+      <text x="16" y="96" font-family="'Segoe UI', sans-serif" font-size="12" fill="#a09d96" line-height="1.6">
+        Autonomous conversion intelligence improves enterprise
+      </text>
+      <text x="16" y="116" font-family="'Segoe UI', sans-serif" font-size="12" fill="#a09d96">
+        funnel throughput by identifying on-page friction
+      </text>
+      <text x="16" y="136" font-family="'Segoe UI', sans-serif" font-size="12" fill="#a09d96">
+        hotspots and verifying Schema.org microdata hierarchy.
+      </text>
+
+      <!-- Source Citation Box -->
+      <g transform="translate(16, 172)">
+        <rect x="0" y="0" width="368" height="110" rx="6" fill="#1f1e1b" stroke="#38342f"/>
+        <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#5db872">🔗 PRIMARY CITED SOURCE [1]</text>
+        <text x="12" y="44" font-family="'JetBrains Mono', monospace" font-size="11" fill="#faf9f5">https://yourdomain.com/solutions/engine</text>
+        <text x="12" y="68" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8e8b82">Citation Rank: #1 in Search Overviews · 98.4% Confidence</text>
+        <rect x="12" y="80" width="84" height="18" rx="4" fill="#5db872" opacity="0.2"/>
+        <text x="20" y="93" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#5db872">VERIFIED FACT</text>
+      </g>
+    </g>
+  </g>
+</svg>
