@@ -19,9 +19,7 @@
 <br />
 
 <!-- Main Hero Banner -->
-<p align="center">
-  <img src="docs/banner.svg" alt="Plyxo CRO — AI thinking-partner for conversion, SEO & answer-engine optimization" width="100%" />
-</p>
+![Plyxo CRO & Claude-SEO](docs/devto-cover.png)
 
 <br />
 
