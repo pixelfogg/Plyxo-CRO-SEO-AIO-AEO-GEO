@@ -61,8 +61,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "npx tsup",
+    "dev": "npx tsup --watch",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
