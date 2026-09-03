@@ -6,6 +6,7 @@ import * as cheerio from 'cheerio';
 import { logActivity } from '@/lib/audit';
 import { requireUser, assertProjectAccess, authErrorStatus } from '@/lib/auth';
 import { assertUrlAllowed } from '@/lib/security';
+import { assertScanAllowed } from '@/lib/billing/quota';
 
 // Configure route to run for longer
 export const maxDuration = 60; // 60 seconds is max on vercel hobby
@@ -90,6 +91,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ pro
 
     const user = await requireUser();
     const project = await assertProjectAccess(projectId, user.id);
+    await assertScanAllowed(project.organizationId);
 
     // Run simple recursive crawl
     const crawledData = await crawlRecursively(project.websiteUrl, 25);

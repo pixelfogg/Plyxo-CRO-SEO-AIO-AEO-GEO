@@ -2,6 +2,8 @@ import { db } from '@/db'
 import { projects, uptimeLogs } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { assertUrlAllowed } from '@/lib/security'
+import { runAutomationsForEvent } from '@/lib/automations/engine'
+
 export async function performUptimeCheck(projectId: string, websiteUrl: string, organizationId: string | null) {
   // Real uptime ping (SSRF-guarded). No mock/random history is ever seeded —
   // the uptime chart reflects only genuine checks.
@@ -39,6 +41,11 @@ export async function performUptimeCheck(projectId: string, websiteUrl: string, 
   await db.update(projects)
     .set({ isUp, lastPingedAt: new Date() })
     .where(eq(projects.id, projectId));
+
+  // Emit a downtime event so uptime automations can fire.
+  if (!isUp && organizationId) {
+    await runAutomationsForEvent(organizationId, 'uptime.down', { projectId, url: websiteUrl });
+  }
 
   return isUp;
 }

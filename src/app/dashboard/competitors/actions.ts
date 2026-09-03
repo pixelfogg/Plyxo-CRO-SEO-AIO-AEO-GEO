@@ -8,7 +8,9 @@ import * as cheerio from 'cheerio'
 import { geminiGenerateContent, wrapUntrustedContent, stripJsonFences } from '@/lib/ai/gemini'
 import { logActivity } from '@/lib/audit'
 import { requireUser, requireProjectAccess, assertProjectAccess } from '@/lib/auth'
-import { safeFetch } from '@/lib/security'
+import { safeFetch, fetchHtmlResilient } from '@/lib/security'
+import { runAutomationsForEvent } from '@/lib/automations/engine'
+import { assertScanAllowed } from '@/lib/billing/quota'
 
 const COMPETITOR_ANALYSIS_PROMPT = `
 You are an elite Enterprise SEO Competitor Analyst.
@@ -58,11 +60,7 @@ Ensure the response is ONLY valid JSON.
 `
 
 async function fetchAndCleanHTML(url: string) {
-  const response = await safeFetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }})
-  if (!response.ok) {
-    throw new Error(`Failed to fetch URL: ${url}`)
-  }
-  const html = await response.text()
+  const { html } = await fetchHtmlResilient(url)
   const $ = cheerio.load(html)
   
   $('script, style, noscript, iframe, svg, nav, footer').remove()
@@ -103,6 +101,7 @@ export async function getCompetitorKeywordGaps(projectId: string) {
 export async function analyzeCompetitor(projectId: string, competitorUrl: string) {
   try {
     const { project } = await requireProjectAccess(projectId)
+    await assertScanAllowed(project.organizationId)
 
     // 2. Fetch both sites
     const myText = await fetchAndCleanHTML(project.websiteUrl)
@@ -183,8 +182,10 @@ export async function analyzeCompetitor(projectId: string, competitorUrl: string
     })
 
     await logActivity('Competitor Scan Executed', competitorUrl, 'success', undefined, projectId);
+    await runAutomationsForEvent(project.organizationId, 'competitor.analyzed', { projectId, competitorUrl, name: cleanDomain })
 
     revalidatePath(`/dashboard/competitors/${projectId}`)
+    revalidatePath('/dashboard/billing')
     return { success: true }
   } catch (error: any) {
     console.error("Competitor Analysis failed:", error)

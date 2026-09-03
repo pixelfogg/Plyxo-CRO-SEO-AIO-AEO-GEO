@@ -29,7 +29,7 @@ const tabsListVariants = cva(
     variants: {
       variant: {
         default: "w-full justify-start gap-2 bg-transparent p-0 flex-wrap",
-        pill: "w-fit justify-center p-1 bg-zinc-100 dark:bg-zinc-800/50 rounded-xl",
+        pill: "w-fit justify-center p-1 bg-[#efe9de]/60 dark:bg-[#181715] border border-[#e6dfd8] dark:border-[#2e2b27] rounded-xl gap-1",
         line: "w-full justify-start gap-1 bg-transparent p-0 rounded-none border-b border-border/40 pb-2 flex-wrap",
       },
     },
@@ -59,11 +59,11 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "inline-flex items-center justify-center rounded-lg px-4 py-1.5 text-sm font-medium whitespace-nowrap text-muted-foreground transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center rounded-lg px-3.5 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap text-[#6c6a64] dark:text-[#a19e95] transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
         
-        "data-active:bg-white data-active:text-foreground data-active:shadow-sm dark:data-active:bg-zinc-600 dark:data-active:text-white",
+        "data-active:bg-white data-active:text-[#141413] data-active:shadow-xs data-active:font-semibold dark:data-active:bg-[#252320] dark:data-active:text-[#faf9f5] dark:data-active:border dark:data-active:border-[#2e2b27]",
         
-        "hover:text-foreground dark:hover:text-zinc-300",
+        "hover:text-[#141413] dark:hover:text-[#faf9f5] hover:bg-black/5 dark:hover:bg-white/5",
         
         className
       )}

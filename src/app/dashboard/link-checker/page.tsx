@@ -5,12 +5,25 @@ import { ProjectCard } from '@/components/ui/project-card'
 import { ExternalLink, ChevronRight, Activity, Link as LinkIcon } from 'lucide-react'
 import { RadialSpike } from '@/components/claude/RadialSpike'
 
+import { fetchRemoteProjects } from '@/lib/supabase-admin'
+
 export const dynamic = 'force-dynamic';
 
 export default async function LinkCheckerPage() {
-  const allProjects = await db.query.projects.findMany({
-    orderBy: (projects, { desc }) => [desc(projects.createdAt)]
-  });
+  let allProjects: any[] = []
+  try {
+    allProjects = await db.query.projects.findMany({
+      orderBy: (projects, { desc }) => [desc(projects.createdAt)]
+    })
+  } catch (e) {
+    console.warn('[LinkCheckerPage direct DB warning]:', e)
+  }
+
+  if (allProjects.length === 0) {
+    try {
+      allProjects = await fetchRemoteProjects()
+    } catch {}
+  }
 
   return (
     <div className="space-y-6">

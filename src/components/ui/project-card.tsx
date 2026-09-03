@@ -13,7 +13,7 @@ export interface ProjectCardProps {
     websiteUrl: string
     industry?: string | null
     isUp?: boolean | null
-    createdAt?: Date | null
+    createdAt?: string | Date | null
   }
   actionLabel: string
   actionUrl: string

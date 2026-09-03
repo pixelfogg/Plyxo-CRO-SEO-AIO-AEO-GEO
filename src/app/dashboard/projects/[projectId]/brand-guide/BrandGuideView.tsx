@@ -52,15 +52,23 @@ export function BrandGuideView({ projectId, initialProject }: { projectId: strin
     <div className="space-y-8 mt-8">
       <Tabs defaultValue="visual" className="w-full">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <TabsList className="overflow-x-auto flex-wrap sm:flex-nowrap h-auto py-2">
-            <TabsTrigger value="identity" className="flex items-center gap-2"><Fingerprint className="w-4 h-4" /> Brand Identity</TabsTrigger>
-            <TabsTrigger value="visual" className="flex items-center gap-2"><Palette className="w-4 h-4" /> Design System</TabsTrigger>
-            <TabsTrigger value="exports" className="flex items-center gap-2"><Code className="w-4 h-4" /> Code Exports</TabsTrigger>
-            <TabsTrigger value="markdown" className="flex items-center gap-2"><FileText className="w-4 h-4" /> design.md</TabsTrigger>
+          <TabsList variant="pill" className="overflow-x-auto flex-wrap sm:flex-nowrap h-auto">
+            <TabsTrigger value="identity" className="flex items-center gap-2">
+              <Fingerprint className="w-4 h-4 text-[#cc785c]" /> Brand Identity
+            </TabsTrigger>
+            <TabsTrigger value="visual" className="flex items-center gap-2">
+              <Palette className="w-4 h-4 text-[#cc785c]" /> Design System
+            </TabsTrigger>
+            <TabsTrigger value="exports" className="flex items-center gap-2">
+              <Code className="w-4 h-4 text-[#cc785c]" /> Code Exports
+            </TabsTrigger>
+            <TabsTrigger value="markdown" className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-[#cc785c]" /> design.md
+            </TabsTrigger>
           </TabsList>
           
-          <Button onClick={handleGenerate} disabled={isGenerating} variant="outline" size="sm" className="shrink-0">
-            {isGenerating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Loader2 className="w-4 h-4 mr-2" />}
+          <Button onClick={handleGenerate} disabled={isGenerating} variant="outline" size="sm" className="shrink-0 h-8 gap-1.5 text-xs bg-[#faf9f5] dark:bg-[#181715] border-[#e6dfd8] dark:border-[#2e2b27] hover:border-[#cc785c]/40 hover:text-[#cc785c]">
+            {isGenerating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Palette className="w-3.5 h-3.5" />}
             {isGenerating ? "Regenerating..." : "Regenerate Guide"}
           </Button>
         </div>

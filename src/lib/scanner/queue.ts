@@ -4,7 +4,8 @@ import { runScanner } from './runner';
 import { analyzeHtmlWithAI } from '../ai/gemini';
 import { eq } from 'drizzle-orm';
 import { fetchCoreWebVitals } from './vitals';
-import { assertUrlAllowed, safeFetch } from '../security';
+import { assertUrlAllowed, safeFetch, fetchHtmlResilient } from '../security';
+import { runAutomationsForEvent } from '../automations/engine';
 import { logActivity } from '@/lib/audit';
 import { captureScreenshot } from './screenshot';
 
@@ -79,21 +80,17 @@ export async function processScanJob(scanId: string) {
 
       // Direct HTTP fetch fallback if Browserless did not return HTML
       if (!html || html.length < 50) {
-        console.log(`[Queue] Using direct native fetch for ${context.url}...`);
+        console.log(`[Queue] Using resilient direct fetch for ${context.url}...`);
         try {
-          const directRes = await safeFetch(context.url, {
-            signal: AbortSignal.timeout(9000),
-            headers: {
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-              'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-            }
+          const res = await fetchHtmlResilient(context.url, {
+            signal: AbortSignal.timeout(12000),
           });
-          if (directRes.ok) {
-            html = await directRes.text();
-            console.log(`[Queue] Direct fetch succeeded (${html.length} bytes)`);
+          if (res.html && res.html.length > 50) {
+            html = res.html;
+            console.log(`[Queue] Resilient fetch succeeded (${html.length} bytes)`);
           }
         } catch (directErr) {
-          console.warn('[Queue] Direct fetch fallback failed:', directErr);
+          console.warn('[Queue] Direct resilient fetch fallback failed:', directErr);
         }
       }
 
@@ -179,6 +176,13 @@ export async function processScanJob(scanId: string) {
 
     // Record activity feed entry
     await logActivity('CRO Scan Report Completed', scan.project.name, 'success', undefined, scan.projectId);
+
+    // Fire org automations subscribed to scan completion
+    await runAutomationsForEvent(scan.project.organizationId, 'scan.completed', {
+      projectId: scan.projectId,
+      url: context.url,
+      scores,
+    });
 
   } catch (error) {
     console.error(`[Queue] Scan job ${scanId} failed:`, error);

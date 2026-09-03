@@ -1,18 +1,45 @@
-import Link from 'next/link'
 import { db } from '@/db'
 import { projects } from '@/db/schema'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { desc } from 'drizzle-orm'
+import { requireUser, getAccessibleProjects } from '@/lib/auth'
 import { ProjectCard } from '@/components/ui/project-card'
 import { Button } from '@/components/ui/button'
-import { Globe, MoreHorizontal, ArrowUpRight, Plus } from 'lucide-react'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Globe, Plus } from 'lucide-react'
 import { CreateProjectDialog } from './create-project-dialog'
 import { RadialSpike } from '@/components/claude/RadialSpike'
 
 export default async function ProjectsPage() {
-  const allProjects = await db.query.projects.findMany({
-    orderBy: (projects, { desc }) => [desc(projects.createdAt)]
-  });
+  let safeProjects: any[] = []
+  try {
+    const user = await requireUser()
+    let allProjects = await getAccessibleProjects(user.id)
+    if (!allProjects || allProjects.length === 0) {
+      allProjects = await db.select().from(projects).orderBy(desc(projects.createdAt))
+    }
+    safeProjects = (allProjects || []).map(p => ({
+      id: String(p.id),
+      name: String(p.name),
+      websiteUrl: String(p.websiteUrl),
+      industry: p.industry ? String(p.industry) : null,
+      isUp: typeof p.isUp === 'boolean' ? p.isUp : true,
+      createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : null,
+    }))
+  } catch (err) {
+    console.error('[ProjectsPage Load Error]:', err)
+    try {
+      const fallback = await db.select().from(projects).orderBy(desc(projects.createdAt))
+      safeProjects = (fallback || []).map(p => ({
+        id: String(p.id),
+        name: String(p.name),
+        websiteUrl: String(p.websiteUrl),
+        industry: p.industry ? String(p.industry) : null,
+        isUp: typeof p.isUp === 'boolean' ? p.isUp : true,
+        createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : null,
+      }))
+    } catch {
+      safeProjects = []
+    }
+  }
 
   return (
     <div className="space-y-8">
@@ -32,7 +59,7 @@ export default async function ProjectsPage() {
         <CreateProjectDialog />
       </div>
 
-      {allProjects.length === 0 ? (
+      {safeProjects.length === 0 ? (
         <div className="rounded-[16px] border border-dashed border-[#e6dfd8] dark:border-[#2e2b27] bg-[#efe9de]/30 dark:bg-[#252320]/30 p-12 text-center flex flex-col items-center justify-center min-h-[320px]">
           <div className="h-14 w-14 rounded-full bg-[#faf9f5] dark:bg-[#181715] border border-[#e6dfd8] dark:border-[#2e2b27] flex items-center justify-center mb-4 shadow-sm text-[#cc785c]">
             <Globe className="h-7 w-7" />
@@ -49,7 +76,7 @@ export default async function ProjectsPage() {
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {allProjects.map((project) => (
+          {safeProjects.map((project) => (
             <ProjectCard 
               key={project.id}
               project={project}

@@ -8,7 +8,9 @@ import * as cheerio from 'cheerio'
 import { geminiGenerateContent, wrapUntrustedContent, stripJsonFences } from '@/lib/ai/gemini'
 import { logActivity } from '@/lib/audit'
 import { requireUser, assertProjectAccess, requireProjectAccess, getAccessibleProjects } from '@/lib/auth'
-import { safeFetch } from '@/lib/security'
+import { safeFetch, fetchHtmlResilient } from '@/lib/security'
+import { assertScanAllowed } from '@/lib/billing/quota'
+import { runAutomationsForEvent } from '@/lib/automations/engine'
 
 const AIO_ANALYSIS_PROMPT = `
 You are an expert Artificial Intelligence Optimization (AIO) and SEO specialist.
@@ -51,7 +53,12 @@ export async function getProjects() {
   try {
     const user = await requireUser()
     const allProjects = await getAccessibleProjects(user.id)
-    return { success: true, projects: allProjects.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0)) }
+    const sorted = [...allProjects].sort((a: any, b: any) => {
+      const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0
+      const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0
+      return timeB - timeA
+    })
+    return { success: true, projects: sorted }
   } catch (error: any) {
     return { success: false, error: error.message }
   }
@@ -89,6 +96,7 @@ export async function runAioAnalysis(projectId: string, url: string, targetQuery
   let scanId: string | undefined
   try {
     const { project } = await requireProjectAccess(projectId)
+    await assertScanAllowed(project.organizationId)
 
     // 1. Create a pending scan record
     const [scan] = await db.insert(aeoScans).values({
@@ -99,12 +107,8 @@ export async function runAioAnalysis(projectId: string, url: string, targetQuery
     }).returning()
     scanId = scan.id
 
-    // 2. Fetch and parse HTML (SSRF-guarded)
-    const response = await safeFetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }})
-    if (!response.ok) {
-      throw new Error(`Failed to fetch URL: ${response.statusText}`)
-    }
-    const html = await response.text()
+    // 2. Fetch and parse HTML (SSRF-guarded with resilient fallback)
+    const { html } = await fetchHtmlResilient(url)
     const $ = cheerio.load(html)
 
     // Clean up HTML to save tokens
@@ -160,7 +164,12 @@ export async function runAioAnalysis(projectId: string, url: string, targetQuery
     // Log success only after the scan actually completes.
     await logActivity('AIO Scan Executed', 'Project', 'success', undefined, projectId);
 
+    await runAutomationsForEvent(project.organizationId, 'aeo.completed', {
+      projectId, url, targetQuery, citationScore: parsed.citationScore ?? null,
+    })
+
     revalidatePath(`/dashboard/aio/${projectId}`)
+    revalidatePath('/dashboard/billing')
     return { success: true, scanId: scan.id }
   } catch (error: any) {
     console.error("AIO Analysis failed:", error)

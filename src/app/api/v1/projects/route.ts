@@ -3,6 +3,7 @@ import { db } from '@/db';
 import { projects } from '@/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { validateApiKey, resolveTargetProject, AuthResult } from '@/lib/api-auth';
+import { assertProjectAllowed } from '@/lib/billing/quota';
 
 export async function GET(request: Request) {
   try {
@@ -77,11 +78,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields: name, websiteUrl' }, { status: 400 });
     }
 
-    // Insert project
+    // SSRF Ingestion Check
+    const { assertUrlAllowed } = await import('@/lib/security');
+    const safeWebsiteUrl = await assertUrlAllowed(body.websiteUrl);
+
+    // Enforce project quota check as per organization subscription
+    await assertProjectAllowed(organization.id);
+
     const [newProject] = await db.insert(projects).values({
       organizationId: organization.id,
       name: body.name,
-      websiteUrl: body.websiteUrl,
+      websiteUrl: safeWebsiteUrl,
       industry: body.industry || null,
     }).returning();
 

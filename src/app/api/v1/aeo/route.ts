@@ -3,10 +3,12 @@ import { db } from '@/db';
 import { aeoScans, projects, scans } from '@/db/schema';
 import { eq, desc, and } from 'drizzle-orm';
 import { validateApiKey, resolveTargetProject, AuthResult } from '@/lib/api-auth';
+import { assertScanAllowed } from '@/lib/billing/quota';
 import * as cheerio from 'cheerio';
 import { geminiGenerateContent, wrapUntrustedContent, stripJsonFences } from '@/lib/ai/gemini';
 import { logActivity } from '@/lib/audit';
-import { safeFetch } from '@/lib/security';
+import { safeFetch, fetchHtmlResilient } from '@/lib/security';
+import { runAutomationsForEvent } from '@/lib/automations/engine';
 
 const AIO_ANALYSIS_PROMPT = `
 You are an expert Artificial Intelligence Optimization (AIO) and SEO specialist.
@@ -54,11 +56,7 @@ interface AeoScanOptions {
 async function processAeoScanInBackground(options: AeoScanOptions) {
   const { scanId, projectId, orgId, url, targetQuery, targetEngine, targetPersona } = options;
   try {
-    const response = await safeFetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }});
-    if (!response.ok) {
-      throw new Error(`Failed to fetch URL: ${response.statusText}`);
-    }
-    const html = await response.text();
+    const { html } = await fetchHtmlResilient(url);
     const $ = cheerio.load(html);
 
     $('script, style, noscript, iframe, svg, img').remove();
@@ -108,6 +106,10 @@ async function processAeoScanInBackground(options: AeoScanOptions) {
     });
 
     await logActivity('AIO Scan Executed', 'Project (API)', 'success', undefined, projectId);
+
+    await runAutomationsForEvent(orgId, 'aeo.completed', {
+      projectId, url, targetQuery, citationScore: parsed.citationScore ?? null,
+    });
   } catch (error: any) {
     console.error("API AIO Analysis failed:", error);
     await db.update(aeoScans).set({ status: 'failed', updatedAt: new Date() }).where(eq(aeoScans.id, scanId)).catch(() => {});
@@ -164,6 +166,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields: url, targetQuery' }, { status: 400 });
     }
 
+    try {
+      if (!organization?.id) throw new Error("Organization not found for this key");
+      await assertScanAllowed(organization.id);
+    } catch (e: any) {
+      return NextResponse.json({ error: e.message || 'Payment Required. Upgrade your plan.' }, { status: 402 });
+    }
 
     const targetEngine = body.targetEngine || 'ChatGPT (GPT-4)';
     const targetPersona = body.targetPersona || 'General Audience';

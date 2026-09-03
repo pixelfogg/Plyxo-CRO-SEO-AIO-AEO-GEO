@@ -3,6 +3,7 @@ import { db } from '@/db';
 import { scans, projects } from '@/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { validateApiKey, resolveTargetProject, AuthResult } from '@/lib/api-auth';
+import { assertScanAllowed } from '@/lib/billing/quota';
 import { processScanJob } from '@/lib/scanner/queue';
 
 export const maxDuration = 60;
@@ -58,6 +59,18 @@ export async function POST(request: Request) {
     const projectResolution = await resolveTargetProject(authResult as AuthResult, body.projectId);
     if ('error' in projectResolution) return projectResolution.error;
     const targetProjectId = projectResolution.targetProjectId;
+
+    // Check billing quota before triggering scan
+    try {
+      if (organization?.id) {
+        await assertScanAllowed(organization.id);
+      } else {
+        const p = await db.query.projects.findFirst({ where: eq(projects.id, targetProjectId) });
+        if (p?.organizationId) await assertScanAllowed(p.organizationId);
+      }
+    } catch (quotaError: any) {
+      return NextResponse.json({ error: quotaError.message }, { status: 402 }); // 402 Payment Required
+    }
 
     // Trigger scan logic - insert a new scan record marked as pending
     const [newScan] = await db.insert(scans).values({

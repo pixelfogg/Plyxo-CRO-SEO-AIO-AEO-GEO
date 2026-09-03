@@ -26,8 +26,9 @@ export async function validateApiKey(request: Request, requiredScope?: string) {
 
     const token = authHeader.split(' ')[1];
     
-    // Handle Supabase OAuth or Session JWT Tokens
-    if (!token.startsWith('Plyxo-')) {
+    // Handle standard API Keys vs Supabase OAuth/JWT Tokens
+    const isCustomApiKey = token.startsWith('plyxo_') || token.startsWith('Plyxo-') || token.startsWith('plyxo-');
+    if (!isCustomApiKey) {
       const { createClient } = await import('@supabase/supabase-js');
       const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,

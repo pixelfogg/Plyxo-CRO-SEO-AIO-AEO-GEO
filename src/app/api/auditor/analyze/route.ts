@@ -7,6 +7,7 @@ import { geminiGenerateContent, wrapUntrustedContent, stripJsonFences } from '@/
 import { logActivity } from '@/lib/audit';
 import { requireUser, assertProjectAccess, authErrorStatus } from '@/lib/auth';
 import { safeFetch } from '@/lib/security';
+import { assertScanAllowed } from '@/lib/billing/quota';
 
 export const maxDuration = 60; // Max execution time
 
@@ -54,6 +55,9 @@ export async function POST(req: NextRequest) {
     const project = await db.query.projects.findFirst({
       where: eq(projects.id, page.projectId)
     });
+    if (project?.organizationId) {
+      await assertScanAllowed(project.organizationId);
+    }
 
     // Fetch page content (SSRF-guarded)
     const controller = new AbortController();

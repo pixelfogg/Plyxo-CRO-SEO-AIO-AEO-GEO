@@ -6,10 +6,23 @@ import { Button } from '@/components/ui/button'
 import { Globe, FileText, ArrowUpRight, Plus, Sparkles } from 'lucide-react'
 import { RadialSpike } from '@/components/claude/RadialSpike'
 
+import { fetchRemoteProjects } from '@/lib/supabase-admin'
+
 export default async function ContentAuditorPage() {
-  const allProjects = await db.query.projects.findMany({
-    orderBy: (projects, { desc }) => [desc(projects.createdAt)]
-  });
+  let allProjects: any[] = []
+  try {
+    allProjects = await db.query.projects.findMany({
+      orderBy: (projects, { desc }) => [desc(projects.createdAt)]
+    })
+  } catch (e) {
+    console.warn('[ContentAuditorPage direct DB warning]:', e)
+  }
+
+  if (allProjects.length === 0) {
+    try {
+      allProjects = await fetchRemoteProjects()
+    } catch {}
+  }
 
   return (
     <div className="space-y-8">

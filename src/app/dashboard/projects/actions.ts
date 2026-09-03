@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm'
 import { logActivity } from '@/lib/audit'
 import { requireUser, getCurrentOrgId, requireProjectAccess } from '@/lib/auth'
 import { assertUrlAllowed } from '@/lib/security'
+import { assertScanAllowed, assertProjectAllowed } from '@/lib/billing/quota'
 
 export async function createProject(formData: FormData) {
   const name = formData.get('name') as string;
@@ -28,6 +29,15 @@ export async function createProject(formData: FormData) {
   const user = await requireUser();
   const isCommunity = process.env.NEXT_PUBLIC_IS_CLOUD_EDITION === 'false';
 
+  if (isCommunity) {
+    const existingProjects = await db.query.projects.findMany({
+      where: eq(projects.userId, user.id)
+    });
+    if (existingProjects.length >= 1) {
+      throw new Error('Community Edition is limited to 1 project.');
+    }
+  }
+
   // Always stamp ownership so the project is tenant-scoped. Personal ownership
   // in community edition; organization ownership in cloud.
   const insertData: typeof projects.$inferInsert = {
@@ -42,6 +52,8 @@ export async function createProject(formData: FormData) {
   if (!isCommunity) {
     const orgId = await getCurrentOrgId(user.id);
     insertData.organizationId = orgId;
+    // Enforce dynamic project limit check as per active subscription tier
+    await assertProjectAllowed(orgId);
   }
 
   await db.insert(projects).values(insertData);
@@ -54,6 +66,7 @@ export async function createProject(formData: FormData) {
 
 export async function runAeoScan(projectId: string) {
   const { project } = await requireProjectAccess(projectId);
+  await assertScanAllowed(project.organizationId);
 
   const url = project.websiteUrl;
   let baseUrl;

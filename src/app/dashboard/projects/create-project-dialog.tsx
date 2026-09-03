@@ -34,7 +34,12 @@ export function CreateProjectDialog({ children }: { children?: React.ReactNode }
     } catch (error: any) {
       const msg = error?.message || 'Failed to create project'
       setErrorMessage(msg)
-      toast.error(msg)
+      toast.error(msg, {
+        action: msg.includes('limit reached') || msg.includes('upgrade') ? {
+          label: 'Upgrade Plan',
+          onClick: () => router.push('/dashboard/billing'),
+        } : undefined,
+      })
     } finally {
       setIsLoading(false)
     }
@@ -60,6 +65,15 @@ export function CreateProjectDialog({ children }: { children?: React.ReactNode }
         {errorMessage && (
           <div className="p-3 rounded-md bg-red-500/10 border border-red-500/30 text-red-500 text-xs">
             <p className="font-semibold">{errorMessage}</p>
+            {(errorMessage.includes('limit reached') || errorMessage.includes('upgrade')) && (
+              <button
+                type="button"
+                onClick={() => { setOpen(false); router.push('/dashboard/billing'); }}
+                className="mt-2 text-xs font-semibold underline text-[#cc785c] hover:text-[#a9583e] block"
+              >
+                View Plans &amp; Upgrade Workspace →
+              </button>
+            )}
           </div>
         )}
 

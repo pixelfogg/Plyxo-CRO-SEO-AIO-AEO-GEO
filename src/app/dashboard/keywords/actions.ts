@@ -8,8 +8,10 @@ import * as cheerio from 'cheerio'
 import { geminiGenerateContent, wrapUntrustedContent, stripJsonFences } from '@/lib/ai/gemini'
 import { logActivity } from '@/lib/audit'
 import { requireUser, requireProjectAccess, assertProjectAccess } from '@/lib/auth'
-import { safeFetch } from '@/lib/security'
+import { assertScanAllowed } from '@/lib/billing/quota'
+import { safeFetch, assertUrlAllowed, fetchHtmlResilient } from '@/lib/security'
 import { fetchRealKeywordMetrics, isKeywordProviderConfigured, type RealKeywordMetric } from '@/lib/seo/keyword-provider'
+import { runAutomationsForEvent } from '@/lib/automations/engine'
 
 const KEYWORD_DISCOVERY_PROMPT = `
 You are an elite Enterprise SEO Architect and Keyword Strategist.
@@ -81,10 +83,9 @@ Be specific to THIS page and its keywords. No generic filler.
 export async function getRankingSuggestions(projectId: string) {
   try {
     const { project } = await requireProjectAccess(projectId)
+    await assertScanAllowed(project.organizationId)
 
-    const response = await safeFetch(project.websiteUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } })
-    if (!response.ok) throw new Error(`Failed to fetch URL: ${response.statusText}`)
-    const html = await response.text()
+    const { html } = await fetchHtmlResilient(project.websiteUrl)
     const $ = cheerio.load(html)
     const title = $('title').first().text().trim()
     const metaDescription = $('meta[name="description"]').attr('content')?.trim() || ''
@@ -155,6 +156,7 @@ export async function getRankingSuggestions(projectId: string) {
     })
 
     await logActivity('Generated Ranking Suggestions', project.name, 'success', undefined, projectId)
+    revalidatePath('/dashboard/billing')
     return { success: true, suggestions: parsed }
   } catch (error: any) {
     return { success: false, error: error.message }
@@ -178,15 +180,12 @@ export async function getSavedRankingSuggestions(projectId: string) {
 export async function runKeywordDiscovery(projectId: string) {
   try {
     const { project } = await requireProjectAccess(projectId)
+    await assertScanAllowed(project.organizationId)
 
     const url = project.websiteUrl
 
-    // 2. Fetch and parse HTML (SSRF-guarded)
-    const response = await safeFetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }})
-    if (!response.ok) {
-      throw new Error(`Failed to fetch URL: ${response.statusText}`)
-    }
-    const html = await response.text()
+    // 2. Fetch and parse HTML (SSRF-guarded with resilient Cloudflare/WAF fallback)
+    const { html } = await fetchHtmlResilient(url)
     const $ = cheerio.load(html)
 
     const title = $('title').first().text().trim()
@@ -282,8 +281,10 @@ export async function runKeywordDiscovery(projectId: string) {
     })
 
     await logActivity('Keyword Discovery Executed', project.name, 'success', undefined, projectId);
+    await runAutomationsForEvent(project.organizationId, 'keywords.discovered', { projectId, count: records.length })
 
     revalidatePath(`/dashboard/keywords/${projectId}`)
+    revalidatePath('/dashboard/billing')
     return { success: true }
   } catch (error: any) {
     console.error("Keyword Discovery failed:", error)

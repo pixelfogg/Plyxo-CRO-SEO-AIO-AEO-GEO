@@ -19,6 +19,8 @@ import { ProjectPagesTab } from './ProjectPagesTab'
 import { ProjectHeaderActions } from './ProjectHeaderActions'
 import { ProjectAEOTab } from './ProjectAEOTab'
 import { ActiveScanBanner } from './ActiveScanBanner'
+import { assertScanAllowed } from '@/lib/billing/quota'
+import { fetchRemoteProject, fetchRemoteScans, fetchRemotePages, fetchRemoteUptimeLogs } from '@/lib/supabase-admin'
 
 export const maxDuration = 60;
 
@@ -33,50 +35,126 @@ export default async function ProjectDetailsPage({
     redirect('/dashboard/projects');
   }
   
-  const project = await db.query.projects.findFirst({
-    where: eq(projects.id, projectId)
-  })
+  let project: any = null
+  let projectScans: any[] = []
+  let activeScan: any = null
+  let pages: any[] = []
+  let sortedLogs: any[] = []
+
+  try {
+    try {
+      project = await db.query.projects.findFirst({
+        where: eq(projects.id, projectId)
+      })
+
+      if (!project) {
+        const [found] = await db.select().from(projects).where(eq(projects.id, projectId));
+        project = found || null;
+      }
+    } catch (e) {
+      console.warn('[Direct DB Project Query Warning]:', e);
+    }
+
+    if (!project) {
+      project = await fetchRemoteProject(projectId);
+    }
+
+    if (!project) {
+      notFound()
+    }
+
+    let allScansRaw: any[] = [];
+    try {
+      allScansRaw = await db.query.scans.findMany({
+        where: eq(scans.projectId, projectId),
+        orderBy: [desc(scans.createdAt)],
+        limit: 50,
+        columns: {
+          screenshotBase64: false,
+        }
+      });
+    } catch (e) {
+      console.warn('[Direct DB Scans Query Warning]:', e);
+    }
+
+    if (allScansRaw.length === 0) {
+      allScansRaw = await fetchRemoteScans(projectId);
+    }
+
+    // Exclude SEO Intelligence and AEO Intelligence scans from the main CRO dashboard
+    const projectScansRaw = allScansRaw.filter(scan => {
+      const scores = scan.scores as Record<string, any> || {};
+      return scores.siteHealth === undefined && scores.technical === undefined && scores.aeo === undefined;
+    });
+
+    projectScans = projectScansRaw.map(s => ({
+      ...s,
+      createdAt: s.createdAt ? new Date(s.createdAt).toISOString() : null,
+      startedAt: s.startedAt ? new Date(s.startedAt).toISOString() : null,
+      completedAt: s.completedAt ? new Date(s.completedAt).toISOString() : null,
+    }));
+
+    // Find any scan currently executing in the background
+    activeScan = projectScans.find(s => s.status === 'pending' || s.status === 'running') || null;
+
+    let rawPages: any[] = [];
+    try {
+      rawPages = await db.query.projectPages.findMany({
+        where: eq(projectPages.projectId, projectId),
+        orderBy: [desc(projectPages.discoveredAt)],
+        limit: 100
+      });
+    } catch {}
+
+    if (rawPages.length === 0) {
+      rawPages = await fetchRemotePages(projectId);
+    }
+
+    pages = rawPages.map(p => ({
+      ...p,
+      discoveredAt: p.discoveredAt ? new Date(p.discoveredAt).toISOString() : null,
+    }));
+
+    let logs: any[] = [];
+    try {
+      logs = await db.query.uptimeLogs.findMany({
+        where: eq(uptimeLogs.projectId, projectId),
+        orderBy: [desc(uptimeLogs.createdAt)],
+        limit: 30
+      });
+    } catch {}
+
+    if (logs.length === 0) {
+      logs = await fetchRemoteUptimeLogs(projectId);
+    }
+    
+    sortedLogs = logs
+      .map(l => ({
+        ...l,
+        createdAt: l.createdAt ? new Date(l.createdAt).toISOString() : null,
+      }))
+      .sort((a, b) => (a.createdAt && b.createdAt ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() : 0));
+  } catch (err: any) {
+    if (err?.message === 'NEXT_NOT_FOUND' || err?.digest?.includes('NEXT_NOT_FOUND')) {
+      notFound()
+    }
+    console.error('[ProjectDetailsPage fetch error]:', err)
+    if (!project) {
+      project = await fetchRemoteProject(projectId);
+    }
+  }
 
   if (!project) {
     notFound()
   }
 
-  const allScansRaw = await db.query.scans.findMany({
-    where: eq(scans.projectId, projectId),
-    orderBy: [desc(scans.createdAt)],
-    limit: 50,
-    columns: {
-      screenshotBase64: false,
-    }
-  });
-
-  // Exclude SEO Intelligence and AEO Intelligence scans from the main CRO dashboard
-  const projectScansRaw = allScansRaw.filter(scan => {
-    const scores = scan.scores as Record<string, any> || {};
-    return scores.siteHealth === undefined && scores.technical === undefined && scores.aeo === undefined;
-  });
-
-  const projectScans = projectScansRaw;
-
-  // Find any scan currently executing in the background
-  const activeScan = projectScans.find(s => s.status === 'pending' || s.status === 'running') || null;
   const hasActiveScan = Boolean(activeScan);
-
-  const pages = await db.query.projectPages.findMany({
-    where: eq(projectPages.projectId, projectId),
-    orderBy: [desc(projectPages.discoveredAt)],
-    limit: 100
-  })
-
-  const logs = await db.query.uptimeLogs.findMany({
-    where: eq(uptimeLogs.projectId, projectId),
-    orderBy: [desc(uptimeLogs.createdAt)],
-    limit: 30
-  });
-  const sortedLogs = logs.sort((a, b) => new Date(a.createdAt!).getTime() - new Date(b.createdAt!).getTime());
 
   async function triggerScan() {
     'use server'
+    if (project?.organizationId) {
+      await assertScanAllowed(project.organizationId);
+    }
 
     // 1. Create a new pending scan in the DB
     const [newScan] = await db.insert(scans).values({

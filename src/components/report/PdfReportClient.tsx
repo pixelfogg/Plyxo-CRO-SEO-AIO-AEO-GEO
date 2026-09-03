@@ -5,8 +5,19 @@ import { Download } from 'lucide-react';
 import Link from 'next/link';
 
 export function PdfReportClient({ projectId, scanId, url }: { projectId?: string; scanId?: string; url?: string }) {
-  const targetUrl = url || `/dashboard/projects/${projectId}/scans/${scanId}/print?download=true`;
+  let targetUrl = url || `/dashboard/projects/${projectId}/scans/${scanId}/print?download=true`;
+  if (!targetUrl.includes('download=true')) {
+    targetUrl += targetUrl.includes('?') ? '&download=true' : '?download=true';
+  }
   return (
-    <Link href={targetUrl} target="_blank" className={cn(buttonVariants({ variant: "outline" }), "flex items-center gap-2 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800")}><Download className="h-4 w-4" /><span>Save as PDF</span></Link>
+    <Link 
+      href={targetUrl} 
+      target="_blank" 
+      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "flex items-center gap-1.5 h-8 text-xs bg-white dark:bg-[#181715] border-[#e6dfd8] dark:border-[#2e2b27] hover:bg-zinc-50 dark:hover:bg-zinc-800")}
+    >
+      <Download className="h-3.5 w-3.5 text-zinc-500" />
+      <span>Save as PDF</span>
+    </Link>
   );
 }
+

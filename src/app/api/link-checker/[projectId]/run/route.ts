@@ -6,6 +6,7 @@ import * as cheerio from 'cheerio';
 import { logActivity } from '@/lib/audit';
 import { requireUser, assertProjectAccess, authErrorStatus } from '@/lib/auth';
 import { assertUrlAllowed } from '@/lib/security';
+import { runAutomationsForEvent } from '@/lib/automations/engine';
 
 export const maxDuration = 55; // 55 seconds for Hobby plan
 
@@ -178,6 +179,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ pro
     }
 
     await logActivity('Dead Link Check Executed', project.name, 'success', undefined, projectId);
+
+    if (foundDeadLinks.length > 0) {
+      await runAutomationsForEvent(project.organizationId, 'deadlink.detected', { projectId, count: foundDeadLinks.length });
+    }
 
     return NextResponse.json({ success: true, deadLinks: foundDeadLinks });
 

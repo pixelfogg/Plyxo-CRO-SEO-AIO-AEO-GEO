@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, PanelLeft, Sparkles, FileText, Search, Key, Crosshair, Activity, Unlink } from 'lucide-react';
+import { LayoutDashboard, PanelLeft, Sparkles, FileText, Search, Key, Crosshair, Unlink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function SidebarNav() {
@@ -16,7 +16,6 @@ export function SidebarNav() {
   const isSeoActive = pathname.startsWith('/dashboard/seo');
   const isKeywordsActive = pathname.startsWith('/dashboard/keywords');
   const isCompetitorsActive = pathname.startsWith('/dashboard/competitors');
-  const isActivityFeedActive = pathname.startsWith('/dashboard/activity-feed');
 
   const navItemClass = (active: boolean) => cn(
     "flex items-center space-x-3 rounded-[8px] px-3.5 py-2.5 text-[14px] font-medium transition-all",
@@ -69,15 +68,6 @@ export function SidebarNav() {
       <Link href="/dashboard/competitors" className={navItemClass(isCompetitorsActive)}>
         <Crosshair className={cn("h-4 w-4", isCompetitorsActive ? "text-[#e85a5a]" : "text-[#6c6a64] dark:text-[#8e8b82]")} />
         <span>Competitor Intelligence</span>
-      </Link>
-
-      <div className="pt-6 px-3 pb-2 text-[11px] font-semibold uppercase tracking-[1.5px] text-[#8e8b82]">
-        Live Stream
-      </div>
-
-      <Link href="/dashboard/activity-feed" className={navItemClass(isActivityFeedActive)}>
-        <Activity className={cn("h-4 w-4", isActivityFeedActive ? "text-[#cc785c]" : "text-[#6c6a64] dark:text-[#8e8b82]")} />
-        <span>Activity Feed</span>
       </Link>
     </nav>
   );
