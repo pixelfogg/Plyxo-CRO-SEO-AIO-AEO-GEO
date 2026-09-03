@@ -2,7 +2,7 @@
 
 # ⚡ PLYXO (CRO • SEO • AIO • AEO • GEO)
 ### The Autonomous Open-Source AI Intelligence Platform for Conversion Optimization, Technical SEO & LLM Citations
-#### *Supercharged with Complete Claude-SEO Skills Integration (Inspired by [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo))*
+#### *Supercharged with Complete Claude-SEO Skills Suite (Inspired by [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo))*
 
 <br />
 
@@ -18,7 +18,10 @@
 
 <br />
 
-![Plyxo Banner](docs/social-preview.png)
+<!-- Interactive Animated Demo -->
+<p align="center">
+  <img src="docs/demo/claude-seo-audit-demo.svg" alt="Plyxo Autonomous Claude-SEO Live Audit Demo" width="100%" />
+</p>
 
 <br />
 
@@ -35,9 +38,27 @@
  Autonomous AI Conversion, Search & LLM Intelligence Suite
 ```
 
-[✨ Key Features](#-key-features) • [🧠 Claude-SEO Skills Implemented](#-complete-claude-seo-skills-suite-implemented) • [📊 Why Plyxo?](#-why-plyxo-vs-traditional-tools) • [🛠️ Architecture](#-system-architecture) • [🚀 Quick Start](#-quick-start--installation) • [⚙️ Configuration](#-environment-variables) • [🗺️ Roadmap](#-roadmap) • [🤝 Contributing](#-contributing)
+[🎬 Live Demos](#-interactive-animated-demos) • [✨ Key Features](#-key-features) • [🧠 Claude-SEO Skills Implemented](#-complete-claude-seo-skills-suite-implemented) • [📊 Why Plyxo?](#-why-plyxo-vs-traditional-tools) • [🛠️ Architecture](#-system-architecture) • [🚀 Quick Start](#-quick-start--installation) • [⚙️ Configuration](#-environment-variables) • [🗺️ Roadmap](#-roadmap) • [🤝 Contributing](#-contributing)
 
 </div>
+
+---
+
+## 🎬 Interactive Animated Demos
+
+### 1. ⚡ Autonomous Claude-SEO Live Audit Engine
+Parallel multi-agent execution checking Technical SEO, Schema validation, Core Web Vitals, and LLM citation scores:
+
+<p align="center">
+  <img src="docs/demo/claude-seo-audit-demo.svg" alt="Claude-SEO Autonomous Audit Demo" width="100%" />
+</p>
+
+### 2. 🎯 Visual Bounding Box Friction Localization & Code Fixes
+Live visual viewport inspection pinpointing conversion friction hotspots and generating drop-in Tailwind/React code remediation:
+
+<p align="center">
+  <img src="docs/demo/cro-visual-bounding-box-demo.svg" alt="CRO Visual Bounding Box Inspector Demo" width="100%" />
+</p>
 
 ---
 
@@ -283,6 +304,11 @@ This script will verify your database, run pending migrations, and launch the se
 ```text
 plyxo-cro-seo-aio/
 ├── drizzle/                    # Drizzle ORM SQL migration files
+├── docs/                       # Architectural diagrams & interactive animated demos
+│   ├── demo/
+│   │   ├── claude-seo-audit-demo.svg         # Live animated Claude-SEO audit
+│   │   └── cro-visual-bounding-box-demo.svg  # Live animated CRO bounding box inspector
+│   └── banner.svg
 ├── scripts/
 │   ├── setup-community.ts      # Automated database provisioner & table seeder
 │   └── start-community.ts      # Automated one-click starter

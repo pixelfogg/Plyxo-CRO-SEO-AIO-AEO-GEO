@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%">
+  <defs>
+    <linearGradient id="croBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141413"/>
+      <stop offset="100%" stop-color="#1f1d19"/>
+    </linearGradient>
+    <linearGradient id="boxGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e85a5a"/>
+      <stop offset="100%" stop-color="#cc785c"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    @keyframes boundingPulse { 0%, 100% { stroke-opacity: 0.9; stroke-width: 2.5px; } 50% { stroke-opacity: 0.3; stroke-width: 1.5px; } }
+    @keyframes tagBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    @keyframes revenueFlash { 0%, 100% { fill: #5db872; } 50% { fill: #8ee09e; } }
+    
+    .box-anim-1 { animation: boundingPulse 2s infinite ease-in-out; }
+    .box-anim-2 { animation: boundingPulse 2.5s infinite ease-in-out; }
+    .tag-anim { animation: tagBounce 2s infinite ease-in-out; }
+    .rev-num { animation: revenueFlash 2s infinite; }
+  </style>
+
+  <!-- Container -->
+  <rect width="1000" height="580" rx="14" fill="url(#croBg)" stroke="#2e2b27" stroke-width="1.5"/>
+
+  <!-- Browser Chrome -->
+  <rect x="0" y="0" width="1000" height="44" rx="14" fill="#1b1a17"/>
+  <rect x="0" y="32" width="1000" height="12" fill="#1b1a17"/>
+  <circle cx="24" cy="22" r="6" fill="#e85a5a"/><circle cx="44" cy="22" r="6" fill="#e8a55a"/><circle cx="64" cy="22" r="6" fill="#5db872"/>
+  <rect x="110" y="10" width="600" height="24" rx="6" fill="#141413" stroke="#2e2b27"/>
+  <text x="124" y="26" font-family="'JetBrains Mono', monospace" font-size="12" fill="#8e8b82">/dashboard/projects/checkout-flow/cro-vision</text>
+
+  <!-- Left: Mock Web Page Viewport with Visual Bounding Boxes -->
+  <g transform="translate(36, 68)">
+    <rect x="0" y="0" width="560" height="476" rx="10" fill="#faf9f5" stroke="#e6dfd8"/>
+    
+    <!-- Mock Page Header -->
+    <rect x="24" y="20" width="80" height="16" rx="4" fill="#141413"/>
+    <rect x="400" y="20" width="136" height="16" rx="4" fill="#efe9de"/>
+    <line x1="24" y1="48" x2="536" y2="48" stroke="#e6dfd8" stroke-width="1"/>
+
+    <!-- Hero Section -->
+    <rect x="24" y="70" width="300" height="24" rx="4" fill="#141413"/>
+    <rect x="24" y="102" width="240" height="12" rx="4" fill="#8e8b82" opacity="0.6"/>
+    <rect x="24" y="122" width="200" height="12" rx="4" fill="#8e8b82" opacity="0.4"/>
+
+    <!-- Friction Area 1: Low Contrast CTA (Visual Bounding Box) -->
+    <g class="box-anim-1">
+      <rect x="20" y="152" width="180" height="52" rx="6" fill="none" stroke="#e85a5a" stroke-width="2.5" stroke-dasharray="4 2"/>
+    </g>
+    <rect x="24" y="156" width="172" height="44" rx="4" fill="#d9d5ce"/>
+    <text x="56" y="183" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#8e8b82">Start Free Trial</text>
+
+    <!-- Pin Tag 1 -->
+    <g class="tag-anim" transform="translate(140, 134)">
+      <rect x="0" y="0" width="124" height="22" rx="4" fill="#e85a5a"/>
+      <text x="8" y="15" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#ffffff">⚠️ CRITICAL: -18% CTR</text>
+    </g>
+
+    <!-- Mock Product Grid -->
+    <rect x="24" y="234" width="246" height="210" rx="8" fill="#efe9de"/>
+    <rect x="290" y="234" width="246" height="210" rx="8" fill="#efe9de"/>
+
+    <!-- Friction Area 2: Missing Price Anchoring -->
+    <g class="box-anim-2">
+      <rect x="286" y="230" width="254" height="218" rx="8" fill="none" stroke="#cc785c" stroke-width="2.5" stroke-dasharray="6 3"/>
+    </g>
+    <!-- Pin Tag 2 -->
+    <g transform="translate(360, 216)">
+      <rect x="0" y="0" width="150" height="22" rx="4" fill="#cc785c"/>
+      <text x="8" y="15" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#ffffff">⚡ FRICTION: Missing Anchor</text>
+    </g>
+  </g>
+
+  <!-- Right: AI Remediation & Econometric Lift Card -->
+  <g transform="translate(620, 68)">
+    <rect x="0" y="0" width="344" height="476" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    
+    <text x="20" y="32" font-family="'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="700" fill="#faf9f5">
+      Visual Bounding Box Analysis
+    </text>
+    <text x="20" y="52" font-family="'Segoe UI', sans-serif" font-size="12" fill="#8e8b82">
+      2 Visual Friction Hotspots Pinpointed
+    </text>
+
+    <!-- Economic Impact Metric Box -->
+    <g transform="translate(20, 72)">
+      <rect x="0" y="0" width="304" height="88" rx="8" fill="#252320" stroke="#38342f"/>
+      <text x="16" y="26" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#8e8b82" letter-spacing="0.5">PROJECTED REVENUE LIFT</text>
+      <text x="16" y="62" font-family="'Segoe UI', sans-serif" font-size="32" font-weight="800" class="rev-num">+$28,400<tspan font-size="14" font-weight="500" fill="#8e8b82">/mo</tspan></text>
+      <text x="210" y="60" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5db872">+31.4% CR</text>
+    </g>
+
+    <!-- Instant Code Fix Tab -->
+    <g transform="translate(20, 178)">
+      <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#cc785c" letter-spacing="0.5">DROP-IN TAILWIND FIX</text>
+      
+      <rect x="0" y="28" width="304" height="236" rx="8" fill="#141413" stroke="#2e2b27"/>
+      
+      <text x="14" y="54" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">/* Replace Low-Contrast CTA */</text>
+      <text x="14" y="78" font-family="'JetBrains Mono', monospace" font-size="11" fill="#e85a5a">- &lt;button className="bg-stone-300"&gt;</text>
+      <text x="14" y="102" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">+ &lt;button className="</text>
+      <text x="34" y="124" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">    bg-[#cc785c] hover:bg-[#b5654b]</text>
+      <text x="34" y="146" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">    text-white font-bold py-3 px-6</text>
+      <text x="34" y="168" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">    rounded-xl shadow-lg hover:scale-105</text>
+      <text x="34" y="190" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">    transition-all duration-200"</text>
+      <text x="14" y="212" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">+ &gt; Start Free Trial &rarr;&lt;/button&gt;</text>
+    </g>
+  </g>
+</svg>
