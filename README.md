@@ -18,9 +18,9 @@
 
 <br />
 
-<!-- Hero Interactive Animated Demo -->
+<!-- Main Hero Banner -->
 <p align="center">
-  <img src="docs/demo/claude-seo-audit-demo.svg" alt="Plyxo Autonomous Claude-SEO Live Audit Demo" width="100%" />
+  <img src="docs/banner.svg" alt="Plyxo CRO — AI thinking-partner for conversion, SEO & answer-engine optimization" width="100%" />
 </p>
 
 <br />

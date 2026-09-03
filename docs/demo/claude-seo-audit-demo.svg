@@ -2,62 +2,52 @@
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#141413"/>
-      <stop offset="50%" stop-color="#1a1917"/>
+      <stop offset="50%" stop-color="#181715"/>
       <stop offset="100%" stop-color="#0f0e0d"/>
     </linearGradient>
     <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#cc785c"/>
       <stop offset="100%" stop-color="#e8a55a"/>
     </linearGradient>
-    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#5db872"/>
-      <stop offset="100%" stop-color="#4ea863"/>
-    </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="6" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
 
   <style>
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.05); } }
-    @keyframes scanProgress { 0% { width: 0%; } 50% { width: 68%; } 100% { width: 100%; } }
-    @keyframes fadeInStep1 { 0%, 10% { opacity: 0; transform: translateY(4px); } 20%, 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInStep2 { 0%, 30% { opacity: 0; transform: translateY(4px); } 40%, 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInStep3 { 0%, 50% { opacity: 0; transform: translateY(4px); } 60%, 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInStep4 { 0%, 70% { opacity: 0; transform: translateY(4px); } 80%, 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes codeGlow { 0%, 100% { stroke-opacity: 0.3; } 50% { stroke-opacity: 0.9; } }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.1); } }
+    @keyframes progressBar { 0% { transform: scaleX(0); } 60%, 100% { transform: scaleX(1); } }
+    @keyframes checkGlow { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; filter: drop-shadow(0 0 4px #5db872); } }
     @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+    @keyframes codeBorder { 0%, 100% { stroke: #38342f; } 50% { stroke: #cc785c; } }
 
-    .pulse-dot { animation: pulse 2s infinite ease-in-out; transform-origin: 880px 28px; }
-    .scan-bar { animation: scanProgress 6s infinite cubic-bezier(0.4, 0, 0.2, 1); }
-    .step-1 { animation: fadeInStep1 6s infinite; }
-    .step-2 { animation: fadeInStep2 6s infinite; }
-    .step-3 { animation: fadeInStep3 6s infinite; }
-    .step-4 { animation: fadeInStep4 6s infinite; }
+    .pulse-dot { animation: pulse 2s infinite ease-in-out; transform-origin: 880px 24px; }
+    .scan-line { transform-origin: left; animation: progressBar 4s infinite cubic-bezier(0.16, 1, 0.3, 1); }
+    .status-check { animation: checkGlow 2.5s infinite ease-in-out; }
     .cursor { animation: blink 1s infinite; }
-    .code-box { animation: codeGlow 3s infinite ease-in-out; }
+    .code-card { animation: codeBorder 3s infinite ease-in-out; }
   </style>
 
   <!-- Container Box -->
   <rect width="1000" height="620" rx="14" fill="url(#bgGrad)" stroke="#2e2b27" stroke-width="1.5"/>
 
-  <!-- Window Header / Browser Chrome -->
-  <rect x="0" y="0" width="1000" height="48" rx="14" fill="#1f1e1b"/>
-  <rect x="0" y="36" width="1000" height="12" fill="#1f1e1b"/>
+  <!-- Browser Chrome -->
+  <rect x="0" y="0" width="1000" height="48" rx="14" fill="#1b1a17"/>
+  <rect x="0" y="36" width="1000" height="12" fill="#1b1a17"/>
   <line x1="0" y1="48" x2="1000" y2="48" stroke="#2e2b27" stroke-width="1"/>
 
-  <!-- Window Controls -->
+  <!-- Window Dots -->
   <circle cx="24" cy="24" r="6" fill="#e85a5a"/>
   <circle cx="44" cy="24" r="6" fill="#e8a55a"/>
   <circle cx="64" cy="24" r="6" fill="#5db872"/>
 
   <!-- Command URL Bar -->
-  <rect x="110" y="12" width="700" height="24" rx="6" fill="#141413" stroke="#2e2b27"/>
-  <text x="124" y="28" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="12" fill="#8e8b82">
+  <rect x="110" y="12" width="660" height="24" rx="6" fill="#141413" stroke="#2e2b27"/>
+  <text x="124" y="28" font-family="'JetBrains Mono', monospace" font-size="12" fill="#8e8b82">
     <tspan fill="#cc785c">⚡ plyxo audit</tspan> --url=https://growth-brand.com <tspan fill="#5db872">--engine=claude-seo</tspan>
   </text>
-  <rect x="532" y="17" width="2" height="14" fill="#cc785c" class="cursor"/>
+  <rect x="520" y="17" width="2" height="14" fill="#cc785c" class="cursor"/>
 
   <!-- Live Status Badge -->
   <g class="pulse-dot">
@@ -65,115 +55,117 @@
   </g>
   <text x="892" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" fill="#5db872" letter-spacing="1">LIVE AUDIT</text>
 
-  <!-- Progress Bar Container -->
+  <!-- Progress Bar Top Line -->
   <rect x="0" y="48" width="1000" height="3" fill="#252320"/>
-  <rect x="0" y="48" height="3" fill="url(#brandGrad)" class="scan-bar"/>
+  <rect x="0" y="48" width="1000" height="3" fill="url(#brandGrad)" class="scan-line"/>
 
   <!-- Top Hero Info Section -->
-  <g transform="translate(40, 72)">
-    <rect x="0" y="0" width="920" height="96" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+  <g transform="translate(36, 68)">
+    <rect x="0" y="0" width="928" height="80" rx="10" fill="#1a1917" stroke="#2e2b27"/>
     
-    <!-- Title & Target -->
-    <text x="24" y="32" font-family="'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="700" fill="#faf9f5">
+    <text x="24" y="32" font-family="'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="700" fill="#faf9f5">
       Claude-SEO Autonomous Intelligence Engine
     </text>
     <text x="24" y="56" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" fill="#8e8b82">
-      Target: <tspan fill="#faf9f5" font-weight="600">https://growth-brand.com</tspan> · Resilient WAF Multi-Tier Crawler · 6 Parallel Agents
+      Target: <tspan fill="#faf9f5" font-weight="600">https://growth-brand.com</tspan> · Multi-Tier WAF Bypass · 6 Specialist Agents Active
     </text>
 
-    <!-- Overall Health Gauge Card -->
-    <rect x="740" y="14" width="156" height="68" rx="8" fill="#252320" stroke="#38342f"/>
-    <text x="756" y="38" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#8e8b82" letter-spacing="0.5">HEALTH SCORE</text>
-    <text x="756" y="68" font-family="'Segoe UI', system-ui, sans-serif" font-size="28" font-weight="800" fill="#5db872">94<tspan font-size="16" font-weight="500" fill="#8e8b82">/100</tspan></text>
+    <!-- Health Score Pill -->
+    <rect x="752" y="14" width="156" height="52" rx="8" fill="#252320" stroke="#38342f"/>
+    <text x="768" y="34" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="600" fill="#8e8b82" letter-spacing="0.5">HEALTH SCORE</text>
+    <text x="768" y="56" font-family="'Segoe UI', sans-serif" font-size="24" font-weight="800" fill="#5db872">94<tspan font-size="14" font-weight="500" fill="#8e8b82">/100</tspan></text>
   </g>
 
-  <!-- Left Column: Parallel Specialist Agents Stream -->
-  <g transform="translate(40, 188)">
-    <rect x="0" y="0" width="460" height="392" rx="10" fill="#1a1917" stroke="#2e2b27"/>
-    <text x="20" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#8e8b82" letter-spacing="1">
+  <!-- Left Column: Parallel Specialist Agents Stream (All Visible with Live Status) -->
+  <g transform="translate(36, 164)">
+    <rect x="0" y="0" width="460" height="424" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    <text x="20" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#8e8b82" letter-spacing="1">
       PARALLEL AGENT EXECUTION
     </text>
 
-    <!-- Agent 1: WAF Bypass & Core Web Vitals -->
-    <g class="step-1" transform="translate(20, 48)">
-      <rect x="0" y="0" width="420" height="68" rx="8" fill="#252320" stroke="#2e2b27"/>
-      <circle cx="24" cy="34" r="10" fill="#5db872" opacity="0.2"/>
-      <path d="M19 34 L23 38 L30 29" stroke="#5db872" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <text x="44" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#faf9f5">1. Technical SEO &amp; WAF Bypass</text>
-      <text x="44" y="48" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">Cloudflare Bypassed · LCP: 1.1s · CLS: 0.02 · TTFB: 180ms</text>
+    <!-- Agent 1 -->
+    <g transform="translate(16, 42)">
+      <rect x="0" y="0" width="428" height="80" rx="8" fill="#252320" stroke="#2e2b27"/>
+      <circle cx="24" cy="40" r="10" fill="#5db872" opacity="0.2" class="status-check"/>
+      <path d="M19 40 L23 44 L30 35" stroke="#5db872" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="44" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">1. Technical SEO &amp; WAF Bypass</text>
+      <text x="44" y="50" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">Cloudflare Bypassed · LCP: 1.1s · CLS: 0.02</text>
+      <text x="44" y="66" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">✓ 0 Crawl Blockers · HTTP 200 Clean</text>
     </g>
 
-    <!-- Agent 2: Schema & JSON-LD Validator -->
-    <g class="step-2" transform="translate(20, 128)">
-      <rect x="0" y="0" width="420" height="68" rx="8" fill="#252320" stroke="#2e2b27"/>
-      <circle cx="24" cy="34" r="10" fill="#5db872" opacity="0.2"/>
-      <path d="M19 34 L23 38 L30 29" stroke="#5db872" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <text x="44" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#faf9f5">2. Schema.org &amp; JSON-LD Audit</text>
-      <text x="44" y="48" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">Product, FAQPage, BreadcrumbList ✓ 0 Syntax Errors</text>
+    <!-- Agent 2 -->
+    <g transform="translate(16, 134)">
+      <rect x="0" y="0" width="428" height="80" rx="8" fill="#252320" stroke="#2e2b27"/>
+      <circle cx="24" cy="40" r="10" fill="#5db872" opacity="0.2" class="status-check"/>
+      <path d="M19 40 L23 44 L30 35" stroke="#5db872" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="44" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">2. Schema.org &amp; JSON-LD Audit</text>
+      <text x="44" y="50" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">Product, FAQPage, BreadcrumbList</text>
+      <text x="44" y="66" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5db872">✓ Rich Snippets Validated</text>
     </g>
 
-    <!-- Agent 3: AEO & LLM Citation Likelihood -->
-    <g class="step-3" transform="translate(20, 208)">
-      <rect x="0" y="0" width="420" height="68" rx="8" fill="#252320" stroke="#2e2b27"/>
-      <circle cx="24" cy="34" r="10" fill="#cc785c" opacity="0.2"/>
-      <path d="M19 34 L23 38 L30 29" stroke="#cc785c" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <text x="44" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#faf9f5">3. AEO / GEO LLM Citation Scorer</text>
-      <text x="44" y="48" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cc785c">ChatGPT: 92% · Perplexity: 88% · High Fact Density</text>
+    <!-- Agent 3 -->
+    <g transform="translate(16, 226)">
+      <rect x="0" y="0" width="428" height="80" rx="8" fill="#252320" stroke="#2e2b27"/>
+      <circle cx="24" cy="40" r="10" fill="#cc785c" opacity="0.2" class="status-check"/>
+      <path d="M19 40 L23 44 L30 35" stroke="#cc785c" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="44" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">3. AEO / GEO LLM Citation Scorer</text>
+      <text x="44" y="50" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">ChatGPT: 94% · Perplexity: 89% · Gemini: 96%</text>
+      <text x="44" y="66" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cc785c">⭐ High Fact &amp; Entity Density</text>
     </g>
 
-    <!-- Agent 4: Semantic Cannibalization & Keywords -->
-    <g class="step-4" transform="translate(20, 288)">
-      <rect x="0" y="0" width="420" height="68" rx="8" fill="#252320" stroke="#2e2b27"/>
-      <circle cx="24" cy="34" r="10" fill="#5b8cce" opacity="0.2"/>
-      <path d="M19 34 L23 38 L30 29" stroke="#5b8cce" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <text x="44" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#faf9f5">4. Keyword Gap &amp; E-E-A-T Cadence</text>
-      <text x="44" y="48" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5b8cce">14 High-Intent Query Clusters Extracted · Zero Cannibalization</text>
+    <!-- Agent 4 -->
+    <g transform="translate(16, 318)">
+      <rect x="0" y="0" width="428" height="80" rx="8" fill="#252320" stroke="#2e2b27"/>
+      <circle cx="24" cy="40" r="10" fill="#5b8cce" opacity="0.2" class="status-check"/>
+      <path d="M19 40 L23 44 L30 35" stroke="#5b8cce" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="44" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#faf9f5">4. Keyword Gap &amp; E-E-A-T Cadence</text>
+      <text x="44" y="50" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">14 Search Intent Clusters Extracted</text>
+      <text x="44" y="66" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5b8cce">✓ Zero Keyword Cannibalization</text>
     </g>
   </g>
 
-  <!-- Right Column: Instant Actionable Recommendations & Code Generation -->
-  <g transform="translate(520, 188)">
-    <rect x="0" y="0" width="440" height="392" rx="10" fill="#1a1917" stroke="#2e2b27"/>
-    <text x="20" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#8e8b82" letter-spacing="1">
+  <!-- Right Column: Code Remediation (Aligned and Contained) -->
+  <g transform="translate(512, 164)">
+    <rect x="0" y="0" width="452" height="424" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    <text x="20" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#8e8b82" letter-spacing="1">
       INSTANT AI CODE REMEDIATION
     </text>
 
-    <!-- Metric Chips -->
-    <g transform="translate(20, 48)">
-      <rect x="0" y="0" width="124" height="42" rx="6" fill="#252320" stroke="#2e2b27"/>
-      <text x="12" y="18" font-family="'Segoe UI', sans-serif" font-size="10" fill="#8e8b82">REVENUE LIFT</text>
-      <text x="12" y="34" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#5db872">+$14,200/mo</text>
+    <!-- Metrics Row -->
+    <g transform="translate(16, 42)">
+      <rect x="0" y="0" width="132" height="48" rx="6" fill="#252320" stroke="#2e2b27"/>
+      <text x="12" y="20" font-family="'Segoe UI', sans-serif" font-size="10" fill="#8e8b82">REVENUE LIFT</text>
+      <text x="12" y="38" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#5db872">+$14,200/mo</text>
 
-      <rect x="136" y="0" width="124" height="42" rx="6" fill="#252320" stroke="#2e2b27"/>
-      <text x="148" y="18" font-family="'Segoe UI', sans-serif" font-size="10" fill="#8e8b82">ISSUES FOUND</text>
-      <text x="148" y="34" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#e8a55a">3 High · 0 Crit</text>
+      <rect x="144" y="0" width="132" height="48" rx="6" fill="#252320" stroke="#2e2b27"/>
+      <text x="12" y="20" font-family="'Segoe UI', sans-serif" font-size="10" fill="#8e8b82" transform="translate(144, 0)">ISSUES FOUND</text>
+      <text x="12" y="38" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#e8a55a" transform="translate(144, 0)">3 High · 0 Crit</text>
 
-      <rect x="272" y="0" width="128" height="42" rx="6" fill="#252320" stroke="#2e2b27"/>
-      <text x="284" y="18" font-family="'Segoe UI', sans-serif" font-size="10" fill="#8e8b82">CRAWL DEPTH</text>
-      <text x="284" y="34" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#5b8cce">100% Verified</text>
+      <rect x="288" y="0" width="132" height="48" rx="6" fill="#252320" stroke="#2e2b27"/>
+      <text x="12" y="20" font-family="'Segoe UI', sans-serif" font-size="10" fill="#8e8b82" transform="translate(288, 0)">CRAWL DEPTH</text>
+      <text x="12" y="38" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#5b8cce" transform="translate(288, 0)">100% Verified</text>
     </g>
 
-    <!-- Code Block Simulator -->
-    <g transform="translate(20, 104)">
-      <rect x="0" y="0" width="400" height="268" rx="8" fill="#141413" stroke="#cc785c" stroke-width="1" class="code-box"/>
-      
-      <!-- Code Header -->
-      <rect x="0" y="0" width="400" height="30" rx="8" fill="#1f1e1b"/>
-      <rect x="0" y="22" width="400" height="8" fill="#1f1e1b"/>
+    <!-- Code Box -->
+    <g transform="translate(16, 104)">
+      <rect x="0" y="0" width="420" height="304" rx="8" fill="#141413" stroke="#cc785c" stroke-width="1" class="code-card"/>
+      <rect x="0" y="0" width="420" height="30" rx="8" fill="#1f1e1b"/>
+      <rect x="0" y="22" width="420" height="8" fill="#1f1e1b"/>
       <text x="14" y="20" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cc785c">⚡ schema-faq-remediation.tsx</text>
 
       <!-- Code Lines -->
-      <text x="14" y="54" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">1  <tspan fill="#cc785c">export function</tspan> <tspan fill="#faf9f5">FaqSchemaMarkup() {</tspan></text>
+      <text x="14" y="52" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">1  <tspan fill="#cc785c">export function</tspan> <tspan fill="#faf9f5">FaqSchemaMarkup() {</tspan></text>
       <text x="14" y="74" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">2    <tspan fill="#cc785c">const</tspan> jsonLd = {</text>
-      <text x="14" y="94" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">3      <tspan fill="#5db872">"@context"</tspan>: <tspan fill="#e8a55a">"https://schema.org"</tspan>,</text>
-      <text x="14" y="114" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">4      <tspan fill="#5db872">"@type"</tspan>: <tspan fill="#e8a55a">"FAQPage"</tspan>,</text>
-      <text x="14" y="134" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">5      <tspan fill="#5db872">"mainEntity"</tspan>: [{</text>
-      <text x="14" y="154" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">6        <tspan fill="#5db872">"@type"</tspan>: <tspan fill="#e8a55a">"Question"</tspan>,</text>
-      <text x="14" y="174" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">7        <tspan fill="#5db872">"name"</tspan>: <tspan fill="#e8a55a">"What is the expected CRO lift?"</tspan>,</text>
-      <text x="14" y="194" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">8        <tspan fill="#5db872">"acceptedAnswer"</tspan>: { <tspan fill="#5db872">"text"</tspan>: <tspan fill="#e8a55a">"+24% conversion"</tspan> }</text>
-      <text x="14" y="214" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">9      }]</text>
-      <text x="14" y="234" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">10   };</text>
-      <text x="14" y="254" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">11   <tspan fill="#cc785c">return</tspan> <tspan fill="#5b8cce">&lt;script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /&gt;</tspan>;</text>
+      <text x="14" y="96" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">3      <tspan fill="#5db872">"@context"</tspan>: <tspan fill="#e8a55a">"https://schema.org"</tspan>,</text>
+      <text x="14" y="118" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">4      <tspan fill="#5db872">"@type"</tspan>: <tspan fill="#e8a55a">"FAQPage"</tspan>,</text>
+      <text x="14" y="140" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">5      <tspan fill="#5db872">"mainEntity"</tspan>: [{</text>
+      <text x="14" y="162" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">6        <tspan fill="#5db872">"@type"</tspan>: <tspan fill="#e8a55a">"Question"</tspan>,</text>
+      <text x="14" y="184" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">7        <tspan fill="#5db872">"name"</tspan>: <tspan fill="#e8a55a">"What is the expected lift?"</tspan>,</text>
+      <text x="14" y="206" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">8        <tspan fill="#5db872">"acceptedAnswer"</tspan>: {</text>
+      <text x="14" y="228" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">9          <tspan fill="#5db872">"text"</tspan>: <tspan fill="#e8a55a">"+24% conversion throughput"</tspan></text>
+      <text x="14" y="250" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">10       }</text>
+      <text x="14" y="272" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">11     }]</text>
+      <text x="14" y="294" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8e8b82">12   };</text>
     </g>
   </g>
 </svg>

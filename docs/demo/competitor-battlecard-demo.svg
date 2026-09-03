@@ -11,14 +11,12 @@
   </defs>
 
   <style>
-    @keyframes battleFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-    @keyframes barSlide1 { 0% { width: 0%; } 40%, 100% { width: 88%; } }
-    @keyframes barSlide2 { 0% { width: 0%; } 40%, 100% { width: 62%; } }
+    @keyframes barSlide1 { 0% { transform: scaleX(0.1); } 50%, 100% { transform: scaleX(0.88); } }
+    @keyframes barSlide2 { 0% { transform: scaleX(0.1); } 50%, 100% { transform: scaleX(0.62); } }
     @keyframes gapBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 
-    .flash-vs { animation: battleFlash 2s infinite ease-in-out; }
-    .bar-win { animation: barSlide1 3.5s infinite cubic-bezier(0.16, 1, 0.3, 1); }
-    .bar-lose { animation: barSlide2 3.5s infinite cubic-bezier(0.16, 1, 0.3, 1); }
+    .bar-win { transform-origin: left; animation: barSlide1 3.5s infinite cubic-bezier(0.16, 1, 0.3, 1); }
+    .bar-lose { transform-origin: left; animation: barSlide2 3.5s infinite cubic-bezier(0.16, 1, 0.3, 1); }
     .gap-badge { animation: gapBounce 2s infinite ease-in-out; }
   </style>
 
@@ -33,62 +31,70 @@
   <text x="124" y="26" font-family="'JetBrains Mono', monospace" font-size="12" fill="#8e8b82">/dashboard/competitors/compare?target=rival-brand.com</text>
 
   <!-- Top Hero Header -->
-  <g transform="translate(40, 68)">
-    <rect x="0" y="0" width="920" height="74" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+  <g transform="translate(36, 68)">
+    <rect x="0" y="0" width="928" height="74" rx="10" fill="#1a1917" stroke="#2e2b27"/>
     <text x="24" y="30" font-family="'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="700" fill="#faf9f5">
       Side-by-Side Competitor Gap Analysis &amp; Keyword Battlecard
     </text>
     <text x="24" y="52" font-family="'Segoe UI', sans-serif" font-size="13" fill="#8e8b82">
       Your Property (<tspan fill="#5db872" font-weight="600">YourBrand.com</tspan>) vs Rival (<tspan fill="#e85a5a" font-weight="600">RivalDomain.com</tspan>) · 18 Keyword Gaps Identified
     </text>
-    <g transform="translate(740, 16)" class="gap-badge">
+    <g transform="translate(752, 16)" class="gap-badge">
       <rect x="0" y="0" width="156" height="42" rx="6" fill="#5db872" opacity="0.2"/>
       <text x="18" y="26" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#5db872">⚡ +24% WIN RATE</text>
     </g>
   </g>
 
   <!-- Left: Side-by-Side Domain Matrix -->
-  <g transform="translate(40, 160)">
-    <rect x="0" y="0" width="450" height="380" rx="10" fill="#1a1917" stroke="#2e2b27"/>
-    <text x="20" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#8e8b82" letter-spacing="1">
+  <g transform="translate(36, 160)">
+    <rect x="0" y="0" width="452" height="384" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    <text x="20" y="30" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#8e8b82" letter-spacing="1">
       TOPICAL AUTHORITY METRICS
     </text>
 
     <!-- Metric 1: Core Web Vitals Speed -->
-    <g transform="translate(20, 50)">
+    <g transform="translate(20, 52)">
       <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#faf9f5">Site Performance &amp; LCP</text>
-      <text x="370" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5db872">1.1s vs 3.4s</text>
-      <rect x="0" y="22" width="410" height="10" rx="5" fill="#252320"/>
-      <rect x="0" y="22" height="10" rx="5" fill="url(#winGrad)" class="bar-win"/>
+      <text x="320" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5db872">1.1s vs 3.4s</text>
+      <rect x="0" y="22" width="412" height="10" rx="5" fill="#252320"/>
+      <g class="bar-win">
+        <rect x="0" y="22" width="412" height="10" rx="5" fill="url(#winGrad)"/>
+      </g>
     </g>
 
     <!-- Metric 2: Schema Completeness -->
-    <g transform="translate(20, 114)">
+    <g transform="translate(20, 116)">
       <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#faf9f5">Schema.org Microdata Coverage</text>
-      <text x="370" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5db872">94% vs 48%</text>
-      <rect x="0" y="22" width="410" height="10" rx="5" fill="#252320"/>
-      <rect x="0" y="22" height="10" rx="5" fill="url(#winGrad)" class="bar-win"/>
+      <text x="320" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5db872">94% vs 48%</text>
+      <rect x="0" y="22" width="412" height="10" rx="5" fill="#252320"/>
+      <g class="bar-win">
+        <rect x="0" y="22" width="412" height="10" rx="5" fill="url(#winGrad)"/>
+      </g>
     </g>
 
     <!-- Metric 3: LLM Citations -->
-    <g transform="translate(20, 178)">
+    <g transform="translate(20, 180)">
       <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#faf9f5">AEO Citation Probability</text>
-      <text x="370" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5db872">92% vs 31%</text>
-      <rect x="0" y="22" width="410" height="10" rx="5" fill="#252320"/>
-      <rect x="0" y="22" height="10" rx="5" fill="url(#winGrad)" class="bar-win"/>
+      <text x="320" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5db872">92% vs 31%</text>
+      <rect x="0" y="22" width="412" height="10" rx="5" fill="#252320"/>
+      <g class="bar-win">
+        <rect x="0" y="22" width="412" height="10" rx="5" fill="url(#winGrad)"/>
+      </g>
     </g>
 
     <!-- Metric 4: Keyword Index Density -->
-    <g transform="translate(20, 242)">
+    <g transform="translate(20, 244)">
       <text x="0" y="14" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#faf9f5">High-Intent Keyword Gaps</text>
-      <text x="370" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#cc785c">+18 Keywords</text>
-      <rect x="0" y="22" width="410" height="10" rx="5" fill="#252320"/>
-      <rect x="0" y="22" height="10" rx="5" fill="#cc785c" class="bar-lose"/>
+      <text x="300" y="14" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#cc785c">+18 Keywords</text>
+      <rect x="0" y="22" width="412" height="10" rx="5" fill="#252320"/>
+      <g class="bar-lose">
+        <rect x="0" y="22" width="412" height="10" rx="5" fill="#cc785c"/>
+      </g>
     </g>
 
     <!-- Bottom summary chip -->
-    <g transform="translate(20, 314)">
-      <rect x="0" y="0" width="410" height="46" rx="6" fill="#252320" stroke="#38342f"/>
+    <g transform="translate(20, 318)">
+      <rect x="0" y="0" width="412" height="46" rx="6" fill="#252320" stroke="#38342f"/>
       <text x="14" y="28" font-family="'Segoe UI', sans-serif" font-size="12" fill="#faf9f5">
         🎯 <tspan font-weight="700">Competitive Advantage:</tspan> +4.2x Faster CTTF &amp; Rich Schema
       </text>
@@ -96,43 +102,43 @@
   </g>
 
   <!-- Right: Actionable Keyword Gap List -->
-  <g transform="translate(510, 160)">
-    <rect x="0" y="0" width="450" height="380" rx="10" fill="#1a1917" stroke="#2e2b27"/>
-    <text x="20" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#8e8b82" letter-spacing="1">
+  <g transform="translate(508, 160)">
+    <rect x="0" y="0" width="456" height="384" rx="10" fill="#1a1917" stroke="#2e2b27"/>
+    <text x="20" y="30" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#8e8b82" letter-spacing="1">
       TOP UNTAPPED KEYWORD OPPORTUNITIES
     </text>
 
     <!-- Keyword Item 1 -->
     <g transform="translate(20, 50)">
-      <rect x="0" y="0" width="410" height="66" rx="8" fill="#252320" stroke="#2e2b27"/>
+      <rect x="0" y="0" width="416" height="66" rx="8" fill="#252320" stroke="#2e2b27"/>
       <text x="16" y="26" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#faf9f5">"autonomous cro engine"</text>
-      <text x="16" y="48" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8e8b82">Search Volume: 14.8k/mo · KD: 24 · Est. Revenue: <tspan fill="#5db872" font-weight="700">+$6,400/mo</tspan></text>
-      <rect x="314" y="16" width="80" height="22" rx="4" fill="#5db872" opacity="0.2"/>
-      <text x="324" y="31" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#5db872">EASY WIN</text>
+      <text x="16" y="48" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8e8b82">Search Volume: 14.8k/mo · KD: 24 · Est: <tspan fill="#5db872" font-weight="700">+$6,400/mo</tspan></text>
+      <rect x="320" y="16" width="80" height="22" rx="4" fill="#5db872" opacity="0.2"/>
+      <text x="330" y="31" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#5db872">EASY WIN</text>
     </g>
 
     <!-- Keyword Item 2 -->
     <g transform="translate(20, 126)">
-      <rect x="0" y="0" width="410" height="66" rx="8" fill="#252320" stroke="#2e2b27"/>
+      <rect x="0" y="0" width="416" height="66" rx="8" fill="#252320" stroke="#2e2b27"/>
       <text x="16" y="26" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#faf9f5">"b2b answer engine optimization"</text>
-      <text x="16" y="48" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8e8b82">Search Volume: 8.2k/mo · KD: 18 · Est. Revenue: <tspan fill="#5db872" font-weight="700">+$4,200/mo</tspan></text>
-      <rect x="314" y="16" width="80" height="22" rx="4" fill="#5db872" opacity="0.2"/>
-      <text x="324" y="31" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#5db872">EASY WIN</text>
+      <text x="16" y="48" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8e8b82">Search Volume: 8.2k/mo · KD: 18 · Est: <tspan fill="#5db872" font-weight="700">+$4,200/mo</tspan></text>
+      <rect x="320" y="16" width="80" height="22" rx="4" fill="#5db872" opacity="0.2"/>
+      <text x="330" y="31" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#5db872">EASY WIN</text>
     </g>
 
     <!-- Keyword Item 3 -->
     <g transform="translate(20, 202)">
-      <rect x="0" y="0" width="410" height="66" rx="8" fill="#252320" stroke="#2e2b27"/>
+      <rect x="0" y="0" width="416" height="66" rx="8" fill="#252320" stroke="#2e2b27"/>
       <text x="16" y="26" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#faf9f5">"technical seo schema validator"</text>
-      <text x="16" y="48" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8e8b82">Search Volume: 22.4k/mo · KD: 35 · Est. Revenue: <tspan fill="#cc785c" font-weight="700">+$8,900/mo</tspan></text>
-      <rect x="314" y="16" width="80" height="22" rx="4" fill="#cc785c" opacity="0.2"/>
-      <text x="324" y="31" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#cc785c">MED LIFT</text>
+      <text x="16" y="48" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8e8b82">Search Volume: 22.4k/mo · KD: 35 · Est: <tspan fill="#cc785c" font-weight="700">+$8,900/mo</tspan></text>
+      <rect x="320" y="16" width="80" height="22" rx="4" fill="#cc785c" opacity="0.2"/>
+      <text x="330" y="31" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#cc785c">MED LIFT</text>
     </g>
 
     <!-- Auto-Remediation button -->
     <g transform="translate(20, 290)">
-      <rect x="0" y="0" width="410" height="48" rx="8" fill="#cc785c"/>
-      <text x="120" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      <rect x="0" y="0" width="416" height="48" rx="8" fill="#cc785c"/>
+      <text x="110" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#ffffff">
         ⚡ Auto-Generate Content Cluster &rarr;
       </text>
     </g>
