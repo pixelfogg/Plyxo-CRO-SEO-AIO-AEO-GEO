@@ -308,41 +308,114 @@ This script will verify your database, run pending migrations, and launch the se
 
 ---
 
-## 🏛️ Project Directory Structure
+## 🏛️ Project Directory Structure & Monorepo Architecture
+
+Plyxo uses a **Shared Internal Engine (`@plyxo/core`)** architecture that powers both our **Private SaaS Pro Edition** and the **Public Open-Source Community Edition** from a single codebase.
 
 ```text
-plyxo-cro-seo-aio/
-├── drizzle/                    # Drizzle ORM SQL migration files
-├── docs/                       # Architectural diagrams & interactive animated demos
-│   ├── demo/
-│   │   ├── claude-seo-audit-demo.svg         # Live animated Claude-SEO audit
-│   │   ├── cro-visual-bounding-box-demo.svg  # Live animated CRO bounding box inspector
-│   │   ├── aeo-citation-scoring-demo.svg     # Live animated AEO citation rates
-│   │   ├── competitor-battlecard-demo.svg    # Live animated competitor gap battlecard
-│   │   └── dead-link-crawler-demo.svg        # Live animated dead link scanner
-│   └── banner.svg
-├── scripts/
-│   ├── setup-community.ts      # Automated database provisioner & table seeder
-│   └── start-community.ts      # Automated one-click starter
+plyxo-cro-seo/
+├── packages/
+│   └── core/                           # 📦 @plyxo/core (Shared Engine Package)
+│       ├── src/
+│       │   ├── ai/                     # Gemini 2.0 multi-key failover & CRO prompts
+│       │   ├── scanner/                # 80+ audit checklist rules, scoring & vitals
+│       │   ├── security/               # SSRF guards & WAF-resilient crawler
+│       │   ├── seo/                    # Claude-SEO heuristics & Schema AST validator
+│       │   └── types/                  # Typed data contracts
+│       ├── tsup.config.ts              # High-speed dual ESM/CJS bundler
+│       └── package.json                # @plyxo/core package configuration
+├── plyxo-mcp-server/                   # 🔌 Model Context Protocol Server
 ├── src/
-│   ├── app/                    # Next.js 16 App Router pages & server actions
-│   │   ├── dashboard/          # Core workspace & diagnostic views
-│   │   │   ├── aio/            # AEO / LLM citation analysis
-│   │   │   ├── auditor/        # Content & Readability auditor
-│   │   │   ├── competitors/    # Competitor intelligence & gap detection
-│   │   │   ├── keywords/       # Keyword discovery & SERP recommendations
-│   │   │   ├── link-checker/   # Dead link scanner
-│   │   │   ├── projects/       # Digital properties & CRO visual inspection
-│   │   │   └── seo/            # Deep Technical & Semantic SEO intelligence
-│   │   ├── api/                # Secure REST API routes
-│   │   └── page.tsx            # Root redirect directly to dashboard
-│   ├── components/             # Reusable UI & editorial component library
-│   ├── db/                     # Drizzle schema definitions & PostgreSQL connection pool
-│   └── lib/                    # Core algorithms, Gemini AI client & SSRF security guards
-├── .env.example                # Sample environment configuration template
-├── package.json                # Project scripts and dependencies
-├── start-community.bat         # Windows batch launcher
-└── README.md                   # Project documentation
+│   ├── app/                            # Next.js 16 App Router pages & server actions
+│   │   ├── dashboard/                  # Core workspace & diagnostic views
+│   │   │   ├── aio/                    # AEO / LLM citation analysis
+│   │   │   ├── auditor/                # Content & Readability auditor
+│   │   │   ├── competitors/            # Competitor intelligence & gap detection
+│   │   │   ├── developer/              # Developer Hub & API Keys
+│   │   │   ├── keywords/               # Keyword discovery & SERP recommendations
+│   │   │   ├── link-checker/           # Dead link scanner
+│   │   │   ├── projects/               # Digital properties & CRO visual inspection
+│   │   │   └── seo/                    # Deep Technical & Semantic SEO intelligence
+│   │   ├── api/                        # Secure REST & MCP API routes
+│   │   └── page.tsx                    # Root landing / dashboard
+│   ├── components/                     # Reusable UI & editorial component library
+│   ├── db/                             # Drizzle schema definitions & connection pool
+│   └── lib/                            # App integrations, billing & auth
+├── drizzle/                            # Drizzle ORM SQL migration files
+├── docs/                               # Architectural diagrams & animated SVG demos
+├── Dockerfile                          # Production multi-stage Docker build
+├── docker-compose.yml                  # Local development Docker compose
+├── package.json                        # Monorepo workspaces configuration
+└── README.md                           # Project documentation
+```
+
+---
+
+## 🔄 Dual-Repository Management Guide (For Developers)
+
+We maintain two repositories from this single codebase:
+1. **Private SaaS Pro Repo (`plyxo.org`):** [`pixelfogg/plyxo-cro-seo`](https://github.com/pixelfogg/plyxo-cro-seo) — Houses full SaaS features (billing, multi-tenant auth, team RBAC, enterprise sync, background queue workers) + `@plyxo/core`.
+2. **Public Community Repo:** [`pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO`](https://github.com/pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO) — Houses the open-source MIT single-tenant self-hosted edition + `@plyxo/core`.
+
+```mermaid
+graph TD
+    subgraph PrivateSaaS ["🔒 Private SaaS Pro Repo (pixelfogg/plyxo-cro-seo)"]
+        CorePkg["📦 packages/core (@plyxo/core)<br/>(Scanners, Schema AST, CRO Engine, AEO Scorer, AI Prompts)"]
+        SaaSApp["💻 SaaS Web Application (plyxo.org)<br/>(Billing, Multi-Tenant Auth, Team RBAC, API Keys)"]
+        SaaSApp -->|Workspace link| CorePkg
+    end
+
+    subgraph PublicCommunity ["🌐 Public Community Repo (pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO)"]
+        CommunityApp["💻 Community Web Application (MIT)<br/>(Single-Tenant Local DB, Free Gemini Keys)"]
+        CommunityCore["📦 packages/core (@plyxo/core)"]
+        CommunityApp -->|Workspace link| CommunityCore
+    end
+
+    CorePkg -.->|Clean Sync| CommunityCore
+```
+
+### 🛠️ Developer Workflow
+
+#### 1. Setup Git Remotes (One-Time Setup)
+```bash
+# Verify your remotes
+git remote add pixelfogg https://github.com/pixelfogg/plyxo-cro-seo.git
+git remote add community https://github.com/pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO.git
+```
+
+#### 2. Where to Make Changes
+* **Core Audit / Heuristics / Scanners / AI:** Edit files inside `packages/core/src/`. Both the SaaS and Community editions will automatically consume these updates.
+* **UI / Dashboard Views:** Edit `src/app/` or `src/components/`.
+* **SaaS Proprietary (Billing / Payments):** Edit `src/lib/billing/` (retained on `main` for SaaS).
+
+#### 3. Building & Testing Locally
+```bash
+# Build the @plyxo/core engine
+npm run build:core
+
+# Typecheck the entire project
+npx tsc --noEmit
+
+# Run full Next.js production build
+npm run build
+```
+
+#### 4. How to Push Updates to Both Repositories
+
+```bash
+# Step 1: Commit your changes on main
+git checkout main
+git add .
+git commit -m "feat(seo): add new audit rule or engine improvement"
+
+# Step 2: Push to the Private SaaS Repo (triggers live plyxo.org deployment)
+git push pixelfogg main
+
+# Step 3: Sync to the Public Community Repo
+git checkout community-sync
+git cherry-pick main
+git push community community-sync:main
+git checkout main
 ```
 
 ---
