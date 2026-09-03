@@ -2,7 +2,7 @@
 
 # ⚡ PLYXO (CRO • SEO • AIO • AEO • GEO)
 ### The Autonomous Open-Source AI Intelligence Platform for Conversion Optimization, Technical SEO & LLM Citations
-#### *Featuring Complete Claude-SEO Intelligence Engine (Inspired by [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo))*
+#### *Supercharged with Complete Claude-SEO Skills Integration (Inspired by [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo))*
 
 <br />
 
@@ -35,7 +35,7 @@
  Autonomous AI Conversion, Search & LLM Intelligence Suite
 ```
 
-[✨ Key Features](#-key-features) • [🧠 Claude-SEO Skills Integration](#-claude-seo-complete-skills-integration) • [📊 Why Plyxo?](#-why-plyxo-vs-traditional-tools) • [🛠️ Architecture](#-system-architecture) • [🚀 Quick Start](#-quick-start--installation) • [⚙️ Configuration](#-environment-variables) • [🗺️ Roadmap](#-roadmap) • [🤝 Contributing](#-contributing)
+[✨ Key Features](#-key-features) • [🧠 Claude-SEO Skills Implemented](#-complete-claude-seo-skills-suite-implemented) • [📊 Why Plyxo?](#-why-plyxo-vs-traditional-tools) • [🛠️ Architecture](#-system-architecture) • [🚀 Quick Start](#-quick-start--installation) • [⚙️ Configuration](#-environment-variables) • [🗺️ Roadmap](#-roadmap) • [🤝 Contributing](#-contributing)
 
 </div>
 
@@ -48,43 +48,72 @@ Traditional analytics tools (Google Analytics, Mixpanel, Hotjar) tell you **that
 **Plyxo** is the next-generation autonomous AI thinking partner for digital growth. It:
 1. **Performs Visual CRO Inspections**: Draws visual bounding boxes over high-friction UI elements and computes the exact dollar loss.
 2. **Generates Instant Code Fixes**: Delivers copy-paste React, Tailwind, and HTML/CSS snippets to eliminate conversion blockers.
-3. **Implements Deep Claude-SEO Skills**: End-to-end technical SEO audits, schema validation, keyword cannibalization detection, and content cadence scoring.
+3. **Executes Complete Claude-SEO Skills**: Natively implements the full suite of technical, semantic, E-E-A-T, and structured schema skills popularized by [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo).
 4. **Pioneers AEO / GEO (Answer Engine Optimization)**: Benchmarks how frequently and authoritatively **ChatGPT**, **Perplexity AI**, **Google Gemini**, and **Claude** cite your pages.
 5. **Discovers Untapped SERP Opportunities**: Finds high-intent keyword gaps and conducts automated side-by-side competitor battlecard audits.
 
 ---
 
-## 🧠 Claude-SEO Complete Skills Integration
+## 🧠 Complete Claude-SEO Skills Suite Implemented
 
-Plyxo natively integrates the complete SEO skills framework popularized by [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo), elevating standard crawler output into Anthropic Claude-level strategic analysis:
+Plyxo natively embeds the complete specialized skill set from [AgriciDaniel/claude-seo/tree/main/skills](https://github.com/AgriciDaniel/claude-seo/tree/main/skills) into our autonomous crawling, parsing, and diagnostic pipeline:
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│                           🧠 CLAUDE-SEO SKILLS ECOSYSTEM IN PLYXO                     │
-├──────────────────────────┬──────────────────────────┬─────────────────────────────────┤
-│ 🛡️ Resilient WAF Bypass  │ 🔍 Semantic Search Audit │ 📐 Rich Schema & JSON-LD        │
-│ • Cloudflare Anti-Bot FW │ • Search Intent Matrix   │ • Schema.org Hierarchy Parsing  │
-│ • Dynamic Headers Binding│ • Heading Outline Trees  │ • FAQ, Product & Article Schemas│
-│ • Multi-Tier Crawler     │ • Keyword Cannibalization│ • OpenGraph & Twitter Meta Tags │
-├──────────────────────────┼──────────────────────────┼─────────────────────────────────┤
-│ 🤖 LLM Answer Engine (AEO│ 📊 PageSpeed Core Vitals │ 🎨 Claude Editorial Workspace   │
-│ • ChatGPT / Gemini Cites │ • LCP, CLS, INP, TTFB    │ • Warm Hues & Editorial Typo    │
-│ • Entity & Facts Density │ • Real Time Telemetry    │ • High-Contrast Interactive Tabs│
-│ • Simulated Search Recs  │ • Zero NaN Scoring Guard │ • Responsive Pinned Navigation  │
-└──────────────────────────┴──────────────────────────┴─────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                        🧠 CLAUDE-SEO SKILLS EMBEDDED IN PLYXO                          │
+├──────────────────────────┬──────────────────────────┬──────────────────────────────────┤
+│ 1. ⚙️ Technical SEO      │ 2. 📝 Content & E-E-A-T  │ 3. 📐 Schema & Structured Data   │
+│ • Crawlability & Indexes │ • Readability & Cadence  │ • JSON-LD Syntax Validation      │
+│ • Core Web Vitals (PSI)  │ • E-E-A-T Authority Score│ • Breadcrumb, FAQ, Article, Prod │
+│ • Speculation & Hydration│ • Heading Hierarchy (H1) │ • OpenGraph & Twitter Meta Cards │
+│ • Anti-Bot WAF Bypass    │ • Cannibalization Checks │ • Semantic Microdata Parsing     │
+├──────────────────────────┼──────────────────────────┼──────────────────────────────────┤
+│ 4. 🤖 AI / AEO / GEO     │ 5. 🔑 Semantic Strategy  │ 6. 🔗 Link Graph & Diagnostics   │
+│ • ChatGPT Citation Scorer│ • Search Intent (4 Types)│ • Fast Dead Link Crawler (404s)  │
+│ • Perplexity AI Bench    │ • Keyword Gap Discovery  │ • Internal Linking Matrix        │
+│ • Entity & Fact Density  │ • Concrete Copy Rewrites │ • SSRF-Guarded Scraping Engine   │
+│ • Direct Answer Format   │ • Multi-Key AI Failover  │ • Live Diagnostic Telemetry      │
+└──────────────────────────┴──────────────────────────┴──────────────────────────────────┘
 ```
 
-### What Got Updated & Feature Breakdown:
+### Detailed Breakdown of Embedded Claude-SEO Skills:
 
-| Claude-SEO Capability | What Was Built / Updated | User Impact |
-| :--- | :--- | :--- |
-| **Multi-Tier WAF / Anti-Bot Bypass** | Resilient multi-tier fallback engine with custom browser header emulation in `src/lib/seo-utils.ts`. | Eliminates `403 Forbidden` and `503 Service Unavailable` errors during live site audits. |
-| **Comprehensive SEO Dashboard** | Completely overhauled interactive client (`SeoDashboardClient.tsx`) with category pill tabs and score visualizations. | Deep inspection of On-Page SEO, Content Quality, Technical Architecture, and Link Graph. |
-| **AI Ranking Suggestions** | Automated Gemini-powered on-page rewrite suggestions saved directly to PostgreSQL. | Step-by-step copywriting instructions to boost keyword ranking positions. |
-| **Multi-Key Gemini Failover** | Automatic round-robin and error failover across multiple Gemini API keys. | 100% uptime for AI scans even when individual keys hit quota or rate limits. |
-| **SSRF Security Guards** | Deep IP & DNS validation (`safeFetch`) forbidding private subnet scraping. | Protection against Server-Side Request Forgery and malicious crawler exploitation. |
-| **Claude Editorial UI Design** | Warm typography, bespoke scrollbars, refined card geometries, and high-contrast active states. | Premium visual aesthetic inspired by Anthropic's Claude interface. |
-| **Fast Payload Streaming** | Excluded ~34MB Base64 screenshot blobs from initial page payloads. | Instant dashboard page loads with zero freeze or memory lag. |
+#### 1. ⚙️ Technical SEO & Performance Skills
+* **`technical-seo` (Crawlability & Directives)**: Evaluates robots.txt rules, dynamic sitemaps, canonical URL consistency, HTTP status codes, redirection hops, and URL parameter sanitization.
+* **`core-web-vitals` (Real Telemetry)**: Live Google PageSpeed Insights integration computing Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), Interaction to Next Paint (INP), and Time to First Byte (TTFB).
+* **`javascript-seo` & Hydration**: Checks server-side rendering (SSR) vs. client-side hydration fidelity and detects JS render-blocking assets.
+* **`waf-resilience` (Cloudflare / WAF Bypass)**: Multi-tier fallback crawler simulating authentic browser fingerprints and dynamic header pools to prevent `403 Forbidden` barriers during site audits.
+
+#### 2. 📝 Content Quality & E-E-A-T Skills
+* **`content-audit` & Quality**: Evaluates content volume, thin-content thresholds, sentence structure, lexical diversity, and reading ease (Flesch-Kincaid scale).
+* **`eeat-analysis` (Experience, Expertise, Authority, Trust)**: Verifies author bio attribution, factual citation density, editorial transparency, and first-party evidence markers.
+* **`heading-hierarchy`**: Validates strict single `H1` usage, sequential heading nesting (`H1` ➔ `H2` ➔ `H3`), and semantic topic segmentation.
+* **`keyword-cannibalization`**: Flags conflicting internal URLs that compete for identical query targets.
+
+#### 3. 📐 Schema & Structured Data Skills
+* **`schema-markup` (JSON-LD Validation)**: Deep parsing and syntax validation against Schema.org standards across:
+  * `Article` / `NewsArticle` / `BlogPosting`
+  * `Product` & `Offer` (e-commerce attributes)
+  * `FAQPage` & `QAPage` (answer engine rich snippets)
+  * `BreadcrumbList` (SERP path navigation)
+  * `Organization` & `LocalBusiness` (Knowledge Graph entity binding)
+* **`social-meta`**: Audits OpenGraph (`og:title`, `og:image`, `og:description`) and Twitter Card metadata for rich social sharing.
+
+#### 4. 🤖 AI Search & Generative Engine Optimization (AEO / GEO)
+* **`ai-citation-readiness`**: Proprietary citation likelihood scoring determining how readily **ChatGPT Search**, **Perplexity AI**, **Google Gemini**, and **Claude** will reference and quote the page.
+* **`entity-density` & Knowledge Graph Parsing**: Extracts and scores named entities, semantic relationships, and structured factual claims.
+* **`answer-first-formatting`**: Analyzes whether content leads with concise, high-entropy answers optimized for LLM snippet extraction.
+
+#### 5. 🔑 Semantic Keyword Strategy & SERP Optimization
+* **`semantic-clustering`**: Classifies query intent into 4 core buckets: *Informational*, *Navigational*, *Commercial*, and *Transactional*.
+* **`keyword-discovery`**: Autonomous extraction of high-value search terms and untapped query clusters.
+* **`on-page-recommendations`**: Generates actionable, before-and-after copy suggestions and HTML fixes saved directly to PostgreSQL.
+* **`multi-key-ai-failover`**: Resilient round-robin engine across multiple Gemini API keys to ensure uninterrupted scanning.
+
+#### 6. 🔗 Link Graph & Diagnostics Skills
+* **`broken-link-checker`**: Crawls internal and external URLs, identifying dead 404s, circular redirects, and SSL handshake failures.
+* **`ssrf-security-guards`**: Strict IP and subnet sanitization preventing Server-Side Request Forgery during crawl operations.
+* **`competitor-battlecards`**: Side-by-side gap matrix analyzing topical gaps against any rival domain.
 
 ---
 
@@ -95,7 +124,7 @@ Plyxo natively integrates the complete SEO skills framework popularized by [Agri
 | **Visual Bounding Box Localization** | ❌ No | ❌ No | **✅ Yes (High-Res Visual Pinpointing)** |
 | **AI Revenue Lift Econometrics** | ❌ No | ❌ No | **✅ Yes (Expected Gain Algorithm)** |
 | **Instant Code Fix Generation (React/CSS)** | ❌ No | ❌ No | **✅ Yes (Production-Ready Fixes)** |
-| **Claude-SEO Complete Skills** | ❌ No | ❌ No | **✅ Yes (Full Semantic & Technical SEO)** |
+| **Complete Claude-SEO Skills Suite** | ❌ No | ❌ No | **✅ Yes (All 6 Skill Domains Embedded)** |
 | **AEO / GEO LLM Citation Scoring** | ❌ No | ❌ No | **✅ Yes (ChatGPT / Perplexity / Gemini)** |
 | **Automated Keyword Gap Analysis** | ❌ No | ⚠️ Partial (Paid) | **✅ Yes (AI Semantic Search Gaps)** |
 | **Dead Link & Broken DOM Checker** | ⚠️ Partial | ⚠️ Partial | **✅ Yes (SSRF-Guarded Engine)** |
@@ -291,7 +320,7 @@ plyxo-cro-seo-aio/
 ## 🗺️ Roadmap
 
 - [x] Standalone Community Edition with zero billing and instant login bypass
-- [x] Complete Claude-SEO skills integration (inspired by AgriciDaniel/claude-seo)
+- [x] Full Claude-SEO skills suite integration (Technical, E-E-A-T, Schema, Semantic, GEO)
 - [x] Visual Bounding Box localization & code remediation generator
 - [x] AEO / GEO LLM Citation Likelihood Scorer (ChatGPT, Perplexity, Gemini)
 - [x] Resilient Multi-tier WAF & Cloudflare bypass fallback
