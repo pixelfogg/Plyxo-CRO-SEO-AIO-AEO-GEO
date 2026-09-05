@@ -466,6 +466,10 @@ If you find Plyxo useful, please consider giving us a **Star on GitHub**! It hel
 
 <div align="center">
 
+<a href="https://www.producthunt.com/products/plyxo-self-hosted-cro-seo-llm-tool?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-plyxo-self-hosted-cro-seo-llm-tool" target="_blank" rel="noopener noreferrer"><img alt="Plyxo: Self-hosted CRO+SEO+LLM tool - Free, open-source AI tool for CRO, SEO &amp; AI-search citations | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1241714&amp;theme=neutral&amp;t=1788576510860"></a>
+
+<br /><br />
+
 [![Star on GitHub](https://img.shields.io/github/stars/pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO?style=social)](https://github.com/pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO)
 
 <br />
