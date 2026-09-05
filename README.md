@@ -6,10 +6,6 @@
 
 <br />
 
-<a href="https://www.producthunt.com/products/plyxo-self-hosted-cro-seo-llm-tool?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-plyxo-self-hosted-cro-seo-llm-tool" target="_blank" rel="noopener noreferrer"><img alt="Plyxo: Self-hosted CRO+SEO+LLM tool - Free, open-source AI tool for CRO, SEO &amp; AI-search citations | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1241714&amp;theme=neutral&amp;t=1788576510860"></a>
-
-<br /><br />
-
 [![GitHub Stars](https://img.shields.io/github/stars/pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO?style=for-the-badge&logo=github&color=FF5722)](https://github.com/pixelfogg/Plyxo-CRO-SEO-AIO-AEO-GEO/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.2_(Turbopack)-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
