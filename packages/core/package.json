@@ -78,12 +78,12 @@
   "author": "Plyxo Team",
   "license": "MIT",
   "dependencies": {
-    "@google/genai": "^2.15.0",
+    "@google/genai": "^2.20.0",
     "cheerio": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^26.4.1",
     "tsup": "^8.3.5",
-    "typescript": "^5.0.0"
+    "typescript": "^7.0.2"
   }
 }
