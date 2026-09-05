@@ -78,7 +78,7 @@
   "author": "Plyxo Team",
   "license": "MIT",
   "dependencies": {
-    "@google/genai": "^2.20.0",
+    "@google/genai": "^2.21.0",
     "cheerio": "^1.0.0"
   },
   "devDependencies": {
