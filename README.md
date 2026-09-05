@@ -25,16 +25,7 @@
 
 **🚀 100% Free & Open-Source • Zero Paywalls • No Authentication Friction • Unlimited Properties & Scans • Privacy-First & Self-Hosted**
 
-<br />
-
-```
-  ____  _ __   ____  ______  
- |  _ \| |\ \ / /\ \/ / __ \ 
- | |_) | | \ V /  \  / |  | |
- |  __/| |  | |   /  \ |  | |
- |_|   |_|  |_|  /_/\_\____/ 
- Autonomous AI Conversion, Search & LLM Intelligence Suite
-```
+<br /><br />
 
 [🎬 Interactive Demos](#-interactive-animated-demos) • [✨ Key Features](#-key-features) • [🧠 Claude-SEO Skills Implemented](#-complete-claude-seo-skills-suite-implemented) • [📊 Why Plyxo?](#-why-plyxo-vs-traditional-tools) • [🛠️ Architecture](#-system-architecture) • [🚀 Quick Start](#-quick-start--installation) • [⚙️ Configuration](#-environment-variables) • [🗺️ Roadmap](#-roadmap) • [🤝 Contributing](#-contributing)
 
