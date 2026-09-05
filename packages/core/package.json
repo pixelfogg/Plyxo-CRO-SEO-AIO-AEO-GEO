@@ -61,7 +61,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "npx tsup",
+    "build": "npx tsup && npx tsc --emitDeclarationOnly",
     "dev": "npx tsup --watch",
     "typecheck": "tsc --noEmit"
   },
