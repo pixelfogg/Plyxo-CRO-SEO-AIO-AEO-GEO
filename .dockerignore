@@ -1,0 +1,34 @@
+# Node artifacts
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js build artifacts
+.next
+out
+
+# Environment files
+.env*.local
+.env
+
+# Git & IDE
+.git
+.gitignore
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing & Coverage
+coverage
+.nyc_output
+
+# Temp files & database dumps
+*.sql
+*.tmp
+*.log
