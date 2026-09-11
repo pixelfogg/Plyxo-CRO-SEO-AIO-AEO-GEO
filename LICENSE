@@ -1,0 +1,26 @@
+﻿Functional Source License, Version 1.1, MIT Future License
+(FSL-1.1-MIT)
+
+Copyright (c) 2026 Pixelfogg / Plyxo Contributors
+
+Licensor: Pixelfogg (Plyxo)
+Software: Plyxo
+Change Date: 2 years after the date this version of the Software is published
+Change License: MIT
+
+The Licensor hereby grants you the right to use, modify, and distribute the Software, subject to the terms and conditions of this Functional Source License (the "License").
+
+1. Permitted Uses: You may use the Software for any purpose, including internal business operations, personal use, educational use, and development, except for Competing Uses.
+
+2. Competing Uses: You may not use the Software to provide a Competing Product or Service. A "Competing Product or Service" is any product or service that provides substantially similar functionality to the Software, whether as a hosted service, managed service, cloud offering, downloadable software, on-premise installation, distribution, or resale, where users are charged a fee or where it directly competes with the commercial offerings of the Licensor.
+
+3. Distribution: You may distribute copies of the Software and modifications thereof, provided that:
+   (a) You include a copy of this License with all distributions;
+   (b) You do not charge a fee for the Software or use it in a Competing Product or Service;
+   (c) You retain all copyright notices, trademark notices, and author attributions.
+
+4. Change License: On the Change Date, this License shall automatically convert to the Change License for this version of the Software, and the restrictions in Section 2 shall no longer apply.
+
+5. Trademarks: This License does not grant permission to use the trade names, trademarks, service marks, or product names of the Licensor.
+
+6. Disclaimer: THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

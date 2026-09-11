@@ -76,7 +76,7 @@
     "plyxo"
   ],
   "author": "Plyxo Team",
-  "license": "MIT",
+  "license": "FSL-1.1-MIT",
   "dependencies": {
     "@google/genai": "^2.21.0",
     "cheerio": "^1.0.0"
