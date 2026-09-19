@@ -78,11 +78,11 @@
   "author": "Plyxo Team",
   "license": "FSL-1.1-MIT",
   "dependencies": {
-    "@google/genai": "^2.21.0",
+    "@google/genai": "^2.22.0",
     "cheerio": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^26.5.1",
+    "@types/node": "^26.6.1",
     "tsup": "^8.3.5",
     "typescript": "^7.0.2"
   }
